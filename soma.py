@@ -1,7 +1,7 @@
-a = int(input())#recebe a
-b = int(input())#recebe b
-soma =  a+b
-print(soma)
+a = int(input())    # recebe o primeiro numero
+b = int(input())    # recebe o segundo numero
+soma =  a+b         # adiciona a soma do primeiro numero e segundo numero na variavel "soma"
+print(soma)         # mostra a soma dos dois numeros "a" e "b"
 
 
-#todo: documentar melhor o codigo
+#todo: rodar o codigo
