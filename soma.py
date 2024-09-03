@@ -6,6 +6,7 @@ if operador == '+': #todo: implementar a soma
     s = a+b
 elif operador == '-': #todo: implementar a subtraca
     s = a-b
+    print("Tu eh doido")
     print("danny tem o mel")
 
 print(s)
