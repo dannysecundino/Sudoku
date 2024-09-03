@@ -1,4 +1,5 @@
 a = int(input())
 b = int(input())
-
-#todo: Fazer a soma dos dois numeros
+soma =  a+b
+print
+#todo: Colocar a variavel soma dentro do print
