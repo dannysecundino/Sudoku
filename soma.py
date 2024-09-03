@@ -4,6 +4,9 @@ operador = input()
 
 if operador == '+': #todo: implementar a soma
     s = a+b
+    print("gostou best?")
+    print("amei miga")
+    print("👩")
 elif operador == '-': #todo: implementar a subtraca
     s = a-b
     print("danny tem o mel")
