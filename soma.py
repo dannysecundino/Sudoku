@@ -1,5 +1,7 @@
-a = int(input())
-b = int(input())
+a = int(input())#recebe a
+b = int(input())#recebe b
 soma =  a+b
-print
-#todo: Colocar a variavel soma dentro do print
+print(soma)
+
+
+#todo: documentar melhor o codigo
