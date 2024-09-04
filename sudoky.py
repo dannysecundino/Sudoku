@@ -8,3 +8,9 @@ jogo = [[" ", " ", " ", " ", " ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " ", " ", " ", " ", " "]] #Essa "matriz" representara o jogo por completo. Nela,serao adicionadas aas pistas e as jogadas do usuario
 
+print("   A B C D E F G H I   ")
+print(" ++---+---+---++---+---+---++---+---+---++ ")
+
+for i in range(0, 9):
+    for j in range(0, 9):
+        
