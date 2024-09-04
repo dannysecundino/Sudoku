@@ -62,12 +62,9 @@ def pista(l, c, valor):
     pista[l][c] = True
     
 
-jogada = list(map(str,input().split()))
-jogada = list(jogada[0]).append(jogada[1])
+jogada = str(input())
 
-print(jogada)
 jogada[1] = letraParaNumero(jogada[1])
 
-if jogada[0] == "&":
-    pista(jogada[1], jogada[3], jogada[5])
+
 
