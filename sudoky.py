@@ -1,18 +1,16 @@
-import os
+import os                                                           # Estamos utilizando apenas para limpar o output
 
+jogo = [[" ", " ", " ", " ", " ", " ", " ", " ", " "],              # Essa matriz representara o jogo por completo. Nela, serao adicionadas as pistas e as jogadas do usuario
+        [" ", " ", " ", " ", " ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " ", " ", " ", " ", " "]]              
 
-
-jogo = [[" ", " ", " ", " ", " ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " ", " ", " ", " ", " "]] # Essa "matriz" representara o jogo por completo. Nela, serao adicionadas as pistas e as jogadas do usuario
-
-pista = [[False, False, False, False, False, False, False, False, False],
+pista = [[False, False, False, False, False, False, False, False, False], # Criamos essa matriz para conferir se a coordenada que o jogador tentou fazer alguma acao (deletar ou alterar) eh uma pista ou nao
          [False, False, False, False, False, False, False, False, False],
          [False, False, False, False, False, False, False, False, False],
          [False, False, False, False, False, False, False, False, False],
@@ -20,23 +18,22 @@ pista = [[False, False, False, False, False, False, False, False, False],
          [False, False, False, False, False, False, False, False, False],
          [False, False, False, False, False, False, False, False, False],
          [False, False, False, False, False, False, False, False, False],
-         [False, False, False, False, False, False, False, False, False]] # Criamos essa matriz para conferir se a coordenada que o jogador tentou fazer alguma ação (deletar ou alterar) é uma pista ou não
+         [False, False, False, False, False, False, False, False, False]]
     
-def tabelaSudoku():
-    os.system("cls")#TO DO: em Linux, eh "clear" 
+def tabelaSudoku():                                                 # Visualizacao do sudoku
+    os.system("cls")                                                # TO DO: em Linux, eh "clear" 
 
-    print("    A   B   C    D   E   F    G   H   I")                #Iniciando a visualização do sudoku
-    for i in range(9):                                              #Vai percorrer as 9 linhas (0,9]
-        if i == 3 or i == 6:                                        #Nas linhas após o a linha "3" e a linha "6" o padrão de linha muda de "+" e "-" para "+" e "="
-            print(" ++===+===+===++===+===+===++===+===+===++ ")    #Linhas com "+" e "="
+    print("    A   B   C    D   E   F    G   H   I")                # Iniciando a visualizacao do sudoku
+    for i in range(9):                                              # Vai percorrer as 9 linhas (0,9]
+        if i == 3 or i == 6:                                        # Nas linhas apos o a linha "3" e a linha "6" o padrao de linha muda de "+" e "-" para "+" e "="
+            print(" ++===+===+===++===+===+===++===+===+===++ ")    # Linhas com "+" e "="
         else:                                                       
-            print(" ++---+---+---++---+---+---++---+---+---++ ")    #Linhas mais comuns
+            print(" ++---+---+---++---+---+---++---+---+---++ ")    # Linhas mais comuns
         print(f"{i+1}|| {jogo[i][0]} | {jogo[i][1]} | {jogo[i][2]} || {jogo[i][3]} | {jogo[i][4]} | {jogo[i][5]} || {jogo[i][6]} | {jogo[i][7]} | {jogo[i][8]} ||{i+1}")
     print(" ++---+---+---++---+---+---++---+---+---++ ")            
-    print("    A   B   C    D   E   F    G   H   I")                #Finalização da visualização do sudoku
+    print("    A   B   C    D   E   F    G   H   I")                # Finalizacao da visualizacao do sudoku
 
-
-def letraParaNumero(letra): #Funcao para tranformar os inputs de letras para numeros (que serao usados na manipulacao das colunas das matrizes)
+def letraParaNumero(letra):                                         # Funcao para tranformar os inputs de letras para numeros (que serao usados na manipulacao das colunas das matrizes)
     if letra == "A" or letra == "a":
         return 0
     elif letra == "B" or letra == "b":
@@ -55,16 +52,23 @@ def letraParaNumero(letra): #Funcao para tranformar os inputs de letras para num
         return 7
     elif letra == "I" or letra == "i":
         return 8
+      
+def setPista(l, c, valor):                                          # Estamos demarcando que a coordenada eh ou nao uma pista (pois elas sao inalteradas e indeletaveis)
+    jogo[l-1][c] = valor                                            # A linha eh "-1", pois o usario vai colocar uma entrade entre [1,9] e o programa vai trabalhar com numeros de [0,8]
+    pista[l-1][c] = True
     
-    
-def pista(l, c, valor):
-    jogo[l][c] = valor
-    pista[l][c] = True
-    
 
-jogada = str(input())
+jogada = str(input())                                               # Como o usuario eh burro, nos precisamos remover todos os " ", "," e ":"                     
+jogada = jogada.replace(" ","")                                     # A forma que utilizamos foi usando a funcao replace que troca um elemento qualquer da string por outro
+jogada = jogada.replace(",","")                                     # Trocamos " ", "," e ":" por "" (nulo)
+jogada = jogada.replace(":","")
+jogada = list(jogada)                                               
+jogada[2], jogada[3] = int(jogada[2]), int(jogada[3])               # Transformar a linha e o numero em inteiros (era string
+jogada[1] = letraParaNumero(jogada[1])                              # Transforma a letra da coluna no seu numero correspondente
+if jogada[0] == "&":
+    setPista(jogada[2],jogada[1],jogada[3])
+else:
+    if pista[jogada[2],jogada,[1]]:
+        print("ameiii🧓")
 
-jogada[1] = letraParaNumero(jogada[1])
-
-
-
+tabelaSudoku()
