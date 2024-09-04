@@ -7,6 +7,7 @@ if operador == '+': #todo: implementar a soma
     print("gostou best?")
     print("amei miga")
     print("👩")
+    print("Tenho que tirar 10,5 na prova do Romildo")
 elif operador == '-': #todo: implementar a subtraca
     s = a-b
     print("Tu eh doido")
