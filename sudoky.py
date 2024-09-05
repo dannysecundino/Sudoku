@@ -73,17 +73,19 @@ def setPista(l, c, valor):                                          # Estamos de
     pista[l-1][c] = True
     
 
-jogada = str(input())                                               # Como o usuario eh burro, nos precisamos remover todos os " ", "," e ":"                     
-jogada = jogada.replace(" ","")                                     # A forma que utilizamos foi usando a funcao replace que troca um elemento qualquer da string por outro
-jogada = jogada.replace(",","")                                     # Trocamos " ", "," e ":" por "" (nulo)
-jogada = jogada.replace(":","")
-jogada = list(jogada)                                               
-jogada[2], jogada[3] = int(jogada[2]), int(jogada[3])               # Transformar a linha e o numero em inteiros (era string
-jogada[1] = letraParaNumero(jogada[1])                              # Transforma a letra da coluna no seu numero correspondente
-if jogada[0] == "&":                                                # Provisório para adicionar pistas
-    setPista(jogada[2],jogada[1],jogada[3])
+tabelaSudoku()
+
+acao = str(input())                                                 # Como o usuario eh burro, nos precisamos remover todos os " ", "," e ":"                     
+acao = acao.replace(" ","")                                         # A forma que utilizamos foi usando a funcao replace que troca um elemento qualquer da string por outro
+acao = acao.replace(",","")                                         # Trocamos " ", "," e ":" por "" (nulo)
+acao = acao.replace(":","")
+acao = list(acao)                                               
+acao[2], acao[3] = int(acao[2]), int(acao[3])                       # Transformar a linha e o numero em inteiros (era string)
+acao[1] = letraParaNumero(acao[1])                                  # Transforma a letra da coluna no seu numero correspondente
+if acao[0] == "&":                                                  # Provisório para adicionar pistas
+    setPista(acao[2],acao[1],acao[3])
 else:
-    if pista[jogada[2],jogada,[1]]:
+    if pista[acao[2],acao,[1]]:
         print("ameiii🧓")
 
 tabelaSudoku()
