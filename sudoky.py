@@ -35,14 +35,14 @@ def tabelaSudoku():                                                 # Visualizac
         print(f"{i+1}|| {jogo[i][0]} | {jogo[i][1]} | {jogo[i][2]} || {jogo[i][3]} | {jogo[i][4]} | {jogo[i][5]} || {jogo[i][6]} | {jogo[i][7]} | {jogo[i][8]} ||{i+1}")
     print(" ++---+---+---++---+---+---++---+---+---++ ")            
     print("    A   B   C    D   E   F    G   H   I")                # Finalizacao da visualizacao do sudoku
-    print("\n<<<=====================================>>>""")
+    print("\n<<<=====================================>>>\n""")
 
     #Faremos, agora o menu de entradas
-    print("            >>>===| MENU |===<<<                \n")
-    print("=> Realizar Jogada:  <Coluna>,<Linha>: <Valor>")
-    print("=>   Excluir Valor: !<Coluna>,<Linha>")
-    print("=>  Possibilidades: ?<Coluna>,<Linha>")
-    print("\n             >>>============<<<                ")
+    print("        >>>======| MENU |======<<<\n")
+    print("-> Realizar Jogada:  <Coluna>,<Linha>: <Valor>")
+    print("->   Excluir Valor: !<Coluna>,<Linha>")
+    print("->  Possibilidades: ?<Coluna>,<Linha>")
+    print("\n         >>>==================<<<")
 
 
 
@@ -79,7 +79,7 @@ def formata(s):                                                     # A forma qu
 tabelaSudoku()
 
 
-acao = str(input("\n             Digite sua entrada:"))                                                 # Como o usuario eh burro, nos precisamos remover todos os " ", "," e ":"                                           
+acao = str(input("\n            Digite sua entrada:"))                                                 # Como o usuario eh burro, nos precisamos remover todos os " ", "," e ":"                                           
 acao = format(acao)                             
 acao[1] = letraParaNumero(acao[1])                                  # Transforma a letra da coluna no seu numero correspondente
 if acao[0] == "!" and not pista[acao[2]][acao[1]]:
