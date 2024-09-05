@@ -68,11 +68,9 @@ def setPista(l: int, c: int, valor:int):                            # Estamos de
     jogo[l-1][c] = valor                                            # A linha eh "-1", pois o usuario vai colocar uma entrada entre [1,9], e o programa vai trabalhar com numeros de [0,8]
     pista[l-1][c] = True
     
-def formata(s):                                                     # A forma que utilizamos foi usando a funcao replace que troca um elemento qualquer da string por outro
-    acao = acao.replace(" ","")                                     # Trocamos " ", "," e ":" por "" (nulo)
-    acao = acao.replace(",","")                                     
-    acao = acao.replace(":","")
-    acao[1] = letraParaNumero(acao[1])                              # Transforma a letra da coluna no seu numero correspondente
-
-    acao = list(acao)                                               
+def formata(s):
+    s = s.replace(" ","")                                     # A forma que utilizamos foi usando a funcao replace que troca um elemento qualquer da string por outro
+    s = s.replace(",","")                                     # Trocamos " ", "," e ":" por "" (nulo)
+    s = s.replace(":","")        
+    return list(s)
 #TO DO: ajeitar esse formatar
