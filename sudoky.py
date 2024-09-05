@@ -48,7 +48,7 @@ def tabelaSudoku():                                                 # Visualizac
 
 
 
-def letraParaNumero(letra: str):                                         # Funcao para tranformar os inputs de letras para numeros (que serao usados na manipulacao das colunas das matrizes)
+def letraParaNumero(letra: str):                                    # Funcao para tranformar os inputs de letras para numeros (que serao usados na manipulacao das colunas das matrizes)
     if letra == "A" or letra == "a":
         return 0
     elif letra == "B" or letra == "b":
@@ -68,24 +68,27 @@ def letraParaNumero(letra: str):                                         # Funca
     elif letra == "I" or letra == "i":
         return 8
       
-def setPista(l: int, c: int, valor:int):                                          # Estamos demarcando se a coordenada eh ou nao uma pista (pois elas sao inalteradas e indeletaveis)
+def setPista(l: int, c: int, valor:int):                            # Estamos demarcando se a coordenada eh ou nao uma pista (pois elas sao inalteradas e indeletaveis)
     jogo[l-1][c] = valor                                            # A linha eh "-1", pois o usuario vai colocar uma entrada entre [1,9], e o programa vai trabalhar com numeros de [0,8]
     pista[l-1][c] = True
     
+def formata(s):
+    acao = acao.replace(" ","")                                     # A forma que utilizamos foi usando a funcao replace que troca um elemento qualquer da string por outro
+    acao = acao.replace(",","")                                     # Trocamos " ", "," e ":" por "" (nulo)
+    acao = acao.replace(":","")
+    acao = list(acao)                                               
 
 tabelaSudoku()
 
-acao = str(input())                                                 # Como o usuario eh burro, nos precisamos remover todos os " ", "," e ":"                     
-acao = acao.replace(" ","")                                         # A forma que utilizamos foi usando a funcao replace que troca um elemento qualquer da string por outro
-acao = acao.replace(",","")                                         # Trocamos " ", "," e ":" por "" (nulo)
-acao = acao.replace(":","")
-acao = list(acao)                                               
-acao[2], acao[3] = int(acao[2]), int(acao[3])                       # Transformar a linha e o numero em inteiros (era string)
+
+acao = str(input())                                                 # Como o usuario eh burro, nos precisamos remover todos os " ", "," e ":"                                           
+acao = format(acao)                             
 acao[1] = letraParaNumero(acao[1])                                  # Transforma a letra da coluna no seu numero correspondente
-if acao[0] == "&":                                                  # Enquanto nao integramos o arquivo txt, vamos adicionar as pistas usando um "&" antes de digitar a jogada
-    setPista(acao[2],acao[1],acao[3])
-else:
-    if pista[acao[2],acao,[1]]:
-        print("O local já está preenchido por uma pista. Tente outro espaço.")
+if acao[0] == "!" and not pista[acao[2]][acao[1]]:
+    jogo[acao[2]][acao[1]] = " "
+elif acao[0] == "?":
+
+
+    print("ol")
 
 tabelaSudoku() 
