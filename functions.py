@@ -27,7 +27,7 @@ def tabelaSudoku():                                                 # Visualizac
 
     
     print("    A   B   C    D   E   F    G   H   I")                # Iniciando a visualizacao do sudoku
-    for i in range(9):                                              # Vai percorrer as 9 linhas (0,9]
+    for i in range(9):                                              # Vai percorrer as 9 linhas (0,9)
         if i == 3 or i == 6:                                        # Nas linhas apos o a linha "3" e a linha "6" o padrao de linha muda de "+" e "-" para "+" e "="
             print(" ++===+===+===++===+===+===++===+===+===++ ")    # Linhas com "+" e "="
         else:                                                       
@@ -65,21 +65,29 @@ def letraParaNumero(letra):                                    # Funcao para tra
         return 8
       
 def setPista(l, c, valor):                            # Estamos demarcando se a coordenada eh ou nao uma pista (pois elas sao inalteradas e indeletaveis)
-    jogo[l-1][c] = valor                                            # A linha eh "-1", pois o usuario vai colocar uma entrada entre [1,9], e o programa vai trabalhar com numeros de [0,8]
-    pista[l-1][c] = True
+    jogo[l][c] = valor                                            # A linha eh "-1", pois o usuario vai colocar uma entrada entre [1,9], e o programa vai trabalhar com numeros de [0,8]
+    pista[l][c] = True
     
-def formata(s):
+def formata(s):                                               # Como o usuario eh burro, nos precisamos remover todos os " ", "," e ":"; alem disso, vamos formatar outras coisas da entrada para facilitar a manipulação do codigo
     s = s.replace(" ","")                                     # A forma que utilizamos foi usando a funcao replace que troca um elemento qualquer da string por outro
     s = s.replace(",","")                                     # Trocamos " ", "," e ":" por "" (nulo)
-    s = s.replace(":","")        
-    return list(s)
-#TO DO: ajeitar esse formata
+    s = s.replace(":","")
+    s = list(s)                                               # Tranformamos a string em lista
+
+    if s[0] == "!":
+        operacao = s[0]
+        s.remove(operacao)
+        s.append(operacao)
+    elif s[0] == "?":
+        operacao = s[0]
+        s.remove(operacao)
+        s.append(operacao)
+
+    s[0] = letraParaNumero(s[0])
+    s[1] = int(s[1]) - 1
+    
+    return s
 
 
 
-#C,7: 4
-#C,7
-#C,7 
-
-
-#operação = "" "!" "?"
+    

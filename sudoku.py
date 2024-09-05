@@ -5,7 +5,7 @@ import functions as fu                                             # Para melhor
 fu.tabelaSudoku()
 
 
-acao = str(input("\n            Digite sua entrada:"))                                                 # Como o usuario eh burro, nos precisamos remover todos os " ", "," e ":"                                           
+acao = str(input("\n            Digite sua entrada:"))                                                                                            
 acao = fu.formata(acao)                             
 if acao[0] == "!" and not fu.pista[acao[2]][acao[1]]:
     fu.jogo[acao[2]][acao[1]] = " "
