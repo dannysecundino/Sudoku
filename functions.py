@@ -74,3 +74,12 @@ def formata(s):
     s = s.replace(":","")        
     return list(s)
 #TO DO: ajeitar esse formata
+
+
+
+#C,7: 4
+#C,7
+#C,7 
+
+
+#operação = "" "!" "?"
