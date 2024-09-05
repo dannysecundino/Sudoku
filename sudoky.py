@@ -23,8 +23,7 @@ pista = [[False, False, False, False, False, False, False, False, False], # Cria
 def tabelaSudoku():                                                 # Visualizacao do sudoku e do menu
     os.system("cls")                                                # TO DO: em Linux, eh "clear"
 
-    print("<<<=======================SUDOKU DA FuP=======================>>>")  #Cabecalho
-    print("")
+    print("<<<==========| SUDOKU DE FuP |==========>>>\n")  #Cabecalho
 
     
     print("    A   B   C    D   E   F    G   H   I")                # Iniciando a visualizacao do sudoku
@@ -36,15 +35,14 @@ def tabelaSudoku():                                                 # Visualizac
         print(f"{i+1}|| {jogo[i][0]} | {jogo[i][1]} | {jogo[i][2]} || {jogo[i][3]} | {jogo[i][4]} | {jogo[i][5]} || {jogo[i][6]} | {jogo[i][7]} | {jogo[i][8]} ||{i+1}")
     print(" ++---+---+---++---+---+---++---+---+---++ ")            
     print("    A   B   C    D   E   F    G   H   I")                # Finalizacao da visualizacao do sudoku
+    print("\n<<<=====================================>>>""")
 
     #Faremos, agora o menu de entradas
-    print("")
-    print("")
-    print("                >>>MENU<<<                ")
-    print("=>   Adicionar Pistas: &<Coluna>,<Linha>: <Valor>")  #PROVISORIO!!!
-    print("=>   Realizar Jogada: <Coluna>,<Linha>: <Valor>")
+    print("            >>>===| MENU |===<<<                \n")
+    print("=> Realizar Jogada:  <Coluna>,<Linha>: <Valor>")
     print("=>   Excluir Valor: !<Coluna>,<Linha>")
-    print("=>   Conferir Possibilidades: ?<Coluna>,<Linha>")
+    print("=>  Possibilidades: ?<Coluna>,<Linha>")
+    print("\n             >>>============<<<                ")
 
 
 
@@ -72,23 +70,21 @@ def setPista(l: int, c: int, valor:int):                            # Estamos de
     jogo[l-1][c] = valor                                            # A linha eh "-1", pois o usuario vai colocar uma entrada entre [1,9], e o programa vai trabalhar com numeros de [0,8]
     pista[l-1][c] = True
     
-def formata(s):
-    acao = acao.replace(" ","")                                     # A forma que utilizamos foi usando a funcao replace que troca um elemento qualquer da string por outro
-    acao = acao.replace(",","")                                     # Trocamos " ", "," e ":" por "" (nulo)
+def formata(s):                                                     # A forma que utilizamos foi usando a funcao replace que troca um elemento qualquer da string por outro
+    acao = acao.replace(" ","")                                     # Trocamos " ", "," e ":" por "" (nulo)
+    acao = acao.replace(",","")                                     
     acao = acao.replace(":","")
     acao = list(acao)                                               
 
 tabelaSudoku()
 
 
-acao = str(input())                                                 # Como o usuario eh burro, nos precisamos remover todos os " ", "," e ":"                                           
+acao = str(input("\n             Digite sua entrada:"))                                                 # Como o usuario eh burro, nos precisamos remover todos os " ", "," e ":"                                           
 acao = format(acao)                             
 acao[1] = letraParaNumero(acao[1])                                  # Transforma a letra da coluna no seu numero correspondente
 if acao[0] == "!" and not pista[acao[2]][acao[1]]:
     jogo[acao[2]][acao[1]] = " "
-elif acao[0] == "?":
-
-
-    print("ol")
+#elif acao[0] == "?":
+    #todo: printar todas as possibilidades da linha/coluna/tabela3x3
 
 tabelaSudoku() 
