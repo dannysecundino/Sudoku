@@ -23,7 +23,7 @@ pista = [[False, False, False, False, False, False, False, False, False], # Cria
 def tabelaSudoku():                                                 # Visualizacao do sudoku e do menu
     os.system("cls")                                                # TO DO: em Linux, eh "clear"
 
-    print("<<<==========| SUDOKU DE FuP |==========>>>")  #Cabecalho
+    print("<<<=======================SUDOKU DA FuP=======================>>>")  #Cabecalho
     print("")
 
     
@@ -37,18 +37,18 @@ def tabelaSudoku():                                                 # Visualizac
     print(" ++---+---+---++---+---+---++---+---+---++ ")            
     print("    A   B   C    D   E   F    G   H   I")                # Finalizacao da visualizacao do sudoku
 
-                                                                    #Faremos, agora o menu de entradas
+    #Faremos, agora o menu de entradas
     print("")
     print("")
     print("                >>>MENU<<<                ")
-    print("=>   Adicionar Pistas: &<Coluna>,<Linha>: <Valor>")  #PROVISORIO!!!
+    print("=>   Adcionar Pistas: &<Coluna>,<Linha>: <Valor>")  #PROVISORIO!!!
     print("=>   Realizar Jogada: <Coluna>,<Linha>: <Valor>")
     print("=>   Excluir Valor: !<Coluna>,<Linha>")
     print("=>   Conferir Possibilidades: ?<Coluna>,<Linha>")
 
 
 
-def letraParaNumero(letra):                                         # Funcao para tranformar os inputs de letras para numeros (que serao usados na manipulacao das colunas das matrizes)
+def letraParaNumero(letra: str):                                         # Funcao para tranformar os inputs de letras para numeros (que serao usados na manipulacao das colunas das matrizes)
     if letra == "A" or letra == "a":
         return 0
     elif letra == "B" or letra == "b":
@@ -68,7 +68,7 @@ def letraParaNumero(letra):                                         # Funcao par
     elif letra == "I" or letra == "i":
         return 8
       
-def setPista(l, c, valor):                                          # Estamos demarcando que a coordenada eh ou nao uma pista (pois elas sao inalteradas e indeletaveis)
+def setPista(l: int, c: int, valor:int):                                          # Estamos demarcando que a coordenada eh ou nao uma pista (pois elas sao inalteradas e indeletaveis)
     jogo[l-1][c] = valor                                            # A linha eh "-1", pois o usario vai colocar uma entrade entre [1,9] e o programa vai trabalhar com numeros de [0,8]
     pista[l-1][c] = True
     
@@ -88,4 +88,4 @@ else:
     if pista[acao[2],acao,[1]]:
         print("ameiii🧓")
 
-tabelaSudoku()
+tabelaSudoku() 
