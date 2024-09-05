@@ -73,4 +73,4 @@ def formata(s):
     s = s.replace(",","")                                     # Trocamos " ", "," e ":" por "" (nulo)
     s = s.replace(":","")        
     return list(s)
-#TO DO: ajeitar esse formatar
+#TO DO: ajeitar esse formata
