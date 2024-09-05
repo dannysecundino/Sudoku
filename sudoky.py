@@ -20,9 +20,13 @@ pista = [[False, False, False, False, False, False, False, False, False], # Cria
          [False, False, False, False, False, False, False, False, False],
          [False, False, False, False, False, False, False, False, False]]
     
-def tabelaSudoku():                                                 # Visualizacao do sudoku
-    os.system("cls")                                                # TO DO: em Linux, eh "clear" 
+def tabelaSudoku():                                                 # Visualizacao do sudoku e do menu
+    os.system("cls")                                                # TO DO: em Linux, eh "clear"
 
+    print("<<<=======================SUDOKU DA FuP=======================>>>")  #Cabecalho
+    print("")
+
+    
     print("    A   B   C    D   E   F    G   H   I")                # Iniciando a visualizacao do sudoku
     for i in range(9):                                              # Vai percorrer as 9 linhas (0,9]
         if i == 3 or i == 6:                                        # Nas linhas apos o a linha "3" e a linha "6" o padrao de linha muda de "+" e "-" para "+" e "="
@@ -32,6 +36,17 @@ def tabelaSudoku():                                                 # Visualizac
         print(f"{i+1}|| {jogo[i][0]} | {jogo[i][1]} | {jogo[i][2]} || {jogo[i][3]} | {jogo[i][4]} | {jogo[i][5]} || {jogo[i][6]} | {jogo[i][7]} | {jogo[i][8]} ||{i+1}")
     print(" ++---+---+---++---+---+---++---+---+---++ ")            
     print("    A   B   C    D   E   F    G   H   I")                # Finalizacao da visualizacao do sudoku
+
+    #Faremos, agora o menu de entradas
+    print("")
+    print("")
+    print("                >>>MENU<<<                ")
+    print("=>   Adcionar Pistas: &<Coluna>,<Linha>: <Valor>")  #PROVISORIO!!!
+    print("=>   Realizar Jogada: <Coluna>,<Linha>: <Valor>")
+    print("=>   Excluir Valor: !<Coluna>,<Linha>")
+    print("=>   Conferir Possibilidades: ?<Coluna>,<Linha>")
+
+
 
 def letraParaNumero(letra):                                         # Funcao para tranformar os inputs de letras para numeros (que serao usados na manipulacao das colunas das matrizes)
     if letra == "A" or letra == "a":
