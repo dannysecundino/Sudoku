@@ -41,7 +41,7 @@ def tabelaSudoku():                                                 # Visualizac
     print("")
     print("")
     print("                >>>MENU<<<                ")
-    print("=>   Adcionar Pistas: &<Coluna>,<Linha>: <Valor>")  #PROVISORIO!!!
+    print("=>   Adicionar Pistas: &<Coluna>,<Linha>: <Valor>")  #PROVISORIO!!!
     print("=>   Realizar Jogada: <Coluna>,<Linha>: <Valor>")
     print("=>   Excluir Valor: !<Coluna>,<Linha>")
     print("=>   Conferir Possibilidades: ?<Coluna>,<Linha>")
