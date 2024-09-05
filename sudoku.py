@@ -1,15 +1,10 @@
-import functions as fu                                             # Para melhorar a visibilidade do codigo, separamos a funcao do main
+import functions as fu                      # Estamos importando as funções do arquivo "functions.py"
+import sys                                  # Importando a biblioteca para 
+arquivos = sys.argv                         # Esta lendo as informações dadas no terminal
+arquivo = open(arquivos[1], "r")            # Esta abrindo o arquivo com o nome dado no terminal
+linhas = arquivo.readlines()        
+for coordenadas in linhas:                  #Estamos percorrendo todas as linhas do arquivo aberto
+    
+    
 
-
-
-fu.tabelaSudoku()
-
-
-acao = str(input("\n            Digite sua entrada:"))                                                                                            
-acao = fu.formata(acao)                             
-if acao[0] == "!" and not fu.pista[acao[2]][acao[1]]:
-    fu.jogo[acao[2]][acao[1]] = " "
-#elif acao[0] == "?":
-    #todo: printar todas as possibilidades da linha/coluna/tabela3x3
-
-fu.tabelaSudoku() 
+#acao = str(input("\n            Digite sua entrada:"))                                                                                            
