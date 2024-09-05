@@ -65,7 +65,7 @@ jogada = jogada.replace(":","")
 jogada = list(jogada)                                               
 jogada[2], jogada[3] = int(jogada[2]), int(jogada[3])               # Transformar a linha e o numero em inteiros (era string
 jogada[1] = letraParaNumero(jogada[1])                              # Transforma a letra da coluna no seu numero correspondente
-if jogada[0] == "&":
+if jogada[0] == "&":                                                # Provisório para adicionar pistas
     setPista(jogada[2],jogada[1],jogada[3])
 else:
     if pista[jogada[2],jogada,[1]]:
