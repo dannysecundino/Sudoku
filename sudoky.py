@@ -23,7 +23,7 @@ pista = [[False, False, False, False, False, False, False, False, False], # Cria
 def tabelaSudoku():                                                 # Visualizacao do sudoku e do menu
     os.system("cls")                                                # TO DO: em Linux, eh "clear"
 
-    print("<<<=======================SUDOKU DA FuP=======================>>>")  #Cabecalho
+    print("<<<==========| SUDOKU DE FuP |==========>>>")  #Cabecalho
     print("")
 
     
@@ -37,11 +37,11 @@ def tabelaSudoku():                                                 # Visualizac
     print(" ++---+---+---++---+---+---++---+---+---++ ")            
     print("    A   B   C    D   E   F    G   H   I")                # Finalizacao da visualizacao do sudoku
 
-    #Faremos, agora o menu de entradas
+                                                                    #Faremos, agora o menu de entradas
     print("")
     print("")
     print("                >>>MENU<<<                ")
-    print("=>   Adcionar Pistas: &<Coluna>,<Linha>: <Valor>")  #PROVISORIO!!!
+    print("=>   Adicionar Pistas: &<Coluna>,<Linha>: <Valor>")  #PROVISORIO!!!
     print("=>   Realizar Jogada: <Coluna>,<Linha>: <Valor>")
     print("=>   Excluir Valor: !<Coluna>,<Linha>")
     print("=>   Conferir Possibilidades: ?<Coluna>,<Linha>")
