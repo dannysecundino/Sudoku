@@ -44,7 +44,7 @@ def tabelaSudoku():                                                 # Visualizac
     print("->  Possibilidades: ?<Coluna>,<Linha>")
     print("\n         >>>==================<<<")
 
-def letraParaNumero(letra: str):                                    # Funcao para tranformar os inputs de letras para numeros (que serao usados na manipulacao das colunas das matrizes)
+def letraParaNumero(letra):                                    # Funcao para tranformar os inputs de letras para numeros (que serao usados na manipulacao das colunas das matrizes)
     if letra == "A" or letra == "a":
         return 0
     elif letra == "B" or letra == "b":
@@ -64,7 +64,7 @@ def letraParaNumero(letra: str):                                    # Funcao par
     elif letra == "I" or letra == "i":
         return 8
       
-def setPista(l: int, c: int, valor:int):                            # Estamos demarcando se a coordenada eh ou nao uma pista (pois elas sao inalteradas e indeletaveis)
+def setPista(l, c, valor):                            # Estamos demarcando se a coordenada eh ou nao uma pista (pois elas sao inalteradas e indeletaveis)
     jogo[l-1][c] = valor                                            # A linha eh "-1", pois o usuario vai colocar uma entrada entre [1,9], e o programa vai trabalhar com numeros de [0,8]
     pista[l-1][c] = True
     
