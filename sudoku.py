@@ -8,8 +8,9 @@ arquivos = sys.argv                         # Esta lendo as informações dadas 
 arquivo = open(arquivos[1], "r")            # Esta abrindo o arquivo com o nome dado no terminal
 linhas = arquivo.readlines()        
 for coordenadas in linhas:                  # Estamos percorrendo todas as linhas do arquivo aberto
-    coordenadas = fu.formata(coordenadas)   # Transformando as coordenadas em uma lista
-    fu.setPista(coordenadas[1], coordenadas[0], coordenadas[2]) # Adicionando as pistas na matriz principal do jogo
+    if coordenadas != "":                   # Testando se a linha nao estah vazia
+        coordenadas = fu.formata(coordenadas)   # Transformando as coordenadas em uma lista
+        fu.setPista(coordenadas[1], coordenadas[0], coordenadas[2]) # Adicionando as pistas na matriz principal do jogo
 fu.tabelaSudoku("")                           # A tabela ja sera printada com as pistas
   
 
