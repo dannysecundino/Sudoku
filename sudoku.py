@@ -23,7 +23,7 @@ while not fu.tabelaCompletada(): # Esse laco vai se repetir enquanto a tabela na
 
     # Para excluir uma posicao
     if entrada[2] == '!':                                              
-        if fu.pista[l][c]:                                             # Pistas nao podem seer excluidas
+        if fu.pista[l][c]:                                             # Pistas nao podem ser excluidas
             alerta = "Nao se pode excluir uma pista!"
         elif fu.jogo[l][c] == " ":                                     # Espaços vazios não devem ser deletados
             alerta = "Nao se pode excluir uma posicao vazia!"
@@ -34,7 +34,7 @@ while not fu.tabelaCompletada(): # Esse laco vai se repetir enquanto a tabela na
 
     # Para saber as possibilidades daquela posicao
     elif entrada[2] == '?':                                            
-        alerta = f"Possibilidades: {fu.dica(l,c)}!"
+        alerta = f"Possibilidades: {fu.dica(l,c)}"
 
 
     # Para adiconar um valor ao jogo
@@ -66,6 +66,8 @@ while not fu.tabelaCompletada(): # Esse laco vai se repetir enquanto a tabela na
 
     # Printando a nova tabela apos as alteracoes da jogada
     fu.tabelaSudoku(alerta)
+
+
 
     
 
