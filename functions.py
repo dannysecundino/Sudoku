@@ -150,3 +150,12 @@ def dica(c,l):
                     else:
                         matriz3x3.remove(j)
     return valores_possiveis
+
+def tabelaCompletada():
+    completo = True
+    for i in range(9):
+        for j in range(9):
+            if jogo[i][j] == " ":
+                completo = False
+    
+    return completo
