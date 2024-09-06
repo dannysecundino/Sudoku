@@ -49,7 +49,7 @@ pista = [[False, False, False, False, False, False, False, False, False], # Cria
          [False, False, False, False, False, False, False, False, False],
          [False, False, False, False, False, False, False, False, False]]
     
-def tabelaSudoku():                                                 # Visualizacao do sudoku e do menu
+def tabelaSudoku(alerta):                                                 # Visualizacao do sudoku e do menu
     os.system("cls")                                                # TO DO: em Linux, eh "clear"
 
     print("<<<==========| SUDOKU DE FuP |==========>>>\n")  #Cabecalho
@@ -72,6 +72,7 @@ def tabelaSudoku():                                                 # Visualizac
     print("->   Excluir Valor: !<Coluna>,<Linha>")
     print("->  Possibilidades: ?<Coluna>,<Linha>")
     print("\n         >>>==================<<<")
+    print(f"        {alerta}")
 
 def letraParaNumero(letra):                                    # Funcao para tranformar os inputs de letras para numeros (que serao usados na manipulacao das colunas das matrizes)
     if letra == "A" or letra == "a":
@@ -118,14 +119,8 @@ def formata(s):                                               # Como o usuario e
     return s
 
 def excluir(l,c):
-    if pista[l][c]:                                             # Pistas nao podem seer excluidas
-        print("Nao se pode excluir uma pista!")
-    else:
-        if jogo[l][c] == " ":                                   #Espaços vazios não devem ser deletados
-            print("Nao se pode excluir uma posicao vazia!")
-        else:
-            jogo[l][c] = " "                                    # Excluindo o valor caso aquelas condicoes tenham sido atendidas
-            print("Valor excluido!")
+    if pista[l][c] and jogo[l][c] != " ":                                             # Pistas nao podem seer excluidas
+        jogo[l][c] = " "                                    # Excluindo o valor caso aquelas condicoes tenham sido atendidas
 
 def dica(c,l):
     valores_possiveis = [1,2,3,4,5,6,7,8,9]
