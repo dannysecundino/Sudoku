@@ -1,5 +1,5 @@
 import functions as fu                         # Estamos importando as funções do arquivo "functions.py"
-import sys                                     # Importando a biblioteca para 
+import sys                                     # Importando a biblioteca para pegar o arquivo
 import os                                      # Estamos utilizando apenas para limpar o terminal
 
 
@@ -7,12 +7,12 @@ import os                                      # Estamos utilizando apenas para 
 
 # Recebendo arquivo
 arquivos = sys.argv                             # Esta lendo as informações dadas no terminal
-arquivo = open(arquivos[1], "r")                # Esta abrindo o arquivo com o nome dado no terminal
+arquivo = open(arquivos[0], "r")                # Esta abrindo o arquivo com o nome dado no terminal
 linhas = arquivo.readlines()  
 
 erroTabela = False                              # Ira retornar o erro de ferimento das regras do jogo nas pistas caso ele ocorra
 erroNumeroDePistas = False                      # Ira retornar o erro de numero de pistas fora do intervalo [1,80] caso ele ocorra
-numeroDePistas = 0                              # Contralara o numero de pistas
+numeroDePistas = 0                              # Controlara o numero de pistas
 errosDeFormatacaoPistas = 0
 
 for coordenadas in linhas:                      # Estamos percorrendo todas as linhas do arquivo aberto
