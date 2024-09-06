@@ -64,6 +64,8 @@ def letraParaNumero(letra):                                    # Funcao para tra
         return 7
     elif letra == "I" or letra == "i":
         return 8
+    else:
+        return "erro"
       
 def setPista(l, c, valor):                            # Estamos demarcando se a coordenada eh ou nao uma pista (pois elas sao inalteradas e indeletaveis)
     jogo[l][c] = valor                                            # A linha eh "-1", pois o usuario vai colocar uma entrada entre [1,9], e o programa vai trabalhar com numeros de [0,8]
@@ -83,9 +85,21 @@ def formata(s):                                               # Como o usuario e
         operacao = s[0]
         s.remove(operacao)
         s.append(operacao)
+    else:
+        s[2] = int(s[2])
+        if s[2] < 1 or s[2] > 9:
+            s[2] = "erro"
+        else: 
+            s[2] = str(s[2])
 
     s[0] = letraParaNumero(s[0])
-    s[1] = int(s[1]) - 1
+
+    s[1] = int(s[1])
+    
+    if s[1] >=0 and s[1] <=8:
+        s[1] = s[1] - 1
+    else:
+        s[1] = "erro"
     
     return s
 
