@@ -117,7 +117,15 @@ def formata(s):                                               # Como o usuario e
     
     return s
 
-
+def excluir(l,c):
+    if pista[l][c]:                                             # Pistas nao podem seer excluidas
+        print("Nao se pode excluir uma pista!")
+    else:
+        if jogo[l][c] == " ":                                   #Espaços vazios não devem ser deletados
+            print("Nao se pode excluir uma posicao vazia!")
+        else:
+            jogo[l][c] = " "                                    # Excluindo o valor caso aquelas condicoes tenham sido atendidas
+            print("Valor excluido!")
 
 def dica(c,l):
     valores_possiveis = [1,2,3,4,5,6,7,8,9]
