@@ -184,3 +184,52 @@ def podeSerAdicionado(l,c, valor):  # Nos dira se a jogada eh valida ou nao
 
     
     return pode
+
+def acaoDoUsuario(l,c,valor):
+    # Agora vamos trabalhar com o que recebemos do input() e que foi tratado pela funcao formata()
+
+    # Para excluir uma posicao
+    if valor == '!':                                              
+        if pista[l][c]:                                             # Pistas nao podem ser excluidas
+            alerta = "Nao se pode excluir uma pista!"
+        elif jogo[l][c] == " ":                                     # Espaços vazios não devem ser deletados
+            alerta = "Nao se pode excluir uma posicao vazia!"
+        else:                                                          # Excluindo o valor caso aquelas condicoes tenham sido atendidas
+            jogo[l][c] = " "                                        
+            alerta = "Valor excluido!"
+
+
+    # Para saber as possibilidades daquela posicao
+    elif valor == '?':                                            
+        alerta = f"Possibilidades: {dica(l,c)}"
+
+
+    # Para adiconar um valor ao jogo
+    else:          
+        if not pista[l][c]:  # O valor soh pode ser adicionado se ele estiver na lista de dicas
+
+            if podeSerAdicionado(l, c, valor):  # Uma pista nao pode ser substituída
+
+                if jogo[l][c] != " ":    # Sobrescrever o valor 
+
+                    certeza = input("Voce deseja substituir o valor atual? [S/N] ")
+                    certeza = certeza.upper()   # Transforma em Caixa-Alta
+                    if certeza == "S":    # Garantir que o usuario quer sobrescrever o valor
+                        jogo[l][c] = valor
+                        alerta = "Valor alterado!"
+                    else:                 # Caso o usuario nao queira sobrescrever o valor
+                        alerta = "Jogue novamente!"
+
+                else:                       # Adicionar Valor
+                    jogo[l][c] = valor
+                    alerta = "Valor adicionado!"
+
+            else:   # Uma pista nao pode ser substituída                         
+                alerta = "Esse valor nao pode ser adicionado (Fere as regras do jogo)!"
+
+        else:   # O valor soh pode ser adicionado se ele estiver na lista de dicas
+            alerta = "Voce nao pode sobrescrever uma pista!"
+        
+
+    return alerta   # Sera mostrado na hora de printar a tabela
+            
