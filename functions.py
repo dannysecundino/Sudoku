@@ -43,7 +43,7 @@ def tabelaSudoku(alerta):                                                 # Visu
     print("->   Excluir Valor: !<Coluna>,<Linha>")
     print("->  Possibilidades: ?<Coluna>,<Linha>")
     print("\n         >>>==================<<<")
-    print(f"        {alerta}")
+    print(alerta)
 
 def letraParaNumero(letra):                                    # Funcao para tranformar os inputs de letras para numeros (que serao usados na manipulacao das colunas das matrizes)
     if letra == "A" or letra == "a":
@@ -110,7 +110,7 @@ def testesRestentes(l,c):   # Essa funcao nos ajudara na funcao dica(), ja que e
         testes_restantes = [jogo[l-1][c+1], jogo[l-1][c+2], jogo[l+1][c+1], jogo[l+1][c+2]]
 
     elif p == "11" or p == "14" or p == "17" or p == "41" or p == "44" or p == "47" or p == "71" or p == "74" or p == "77":
-        testes_restantes = [jogo[l-1][c-1], jogo[l-1][c-1], jogo[l+1][c-1], jogo[l+1][c+1]]
+        testes_restantes = [jogo[l-1][c-1], jogo[l-1][c+1], jogo[l+1][c-1], jogo[l+1][c+1]]
     
     elif p == "12" or p == "15" or p == "18" or p == "42" or p == "45" or p == "48" or p == "72" or p == "75" or p == "78":
         testes_restantes = [jogo[l-1][c-2], jogo[l-1][c-1], jogo[l+1][c-2], jogo[l+1][c-1]]
@@ -157,14 +157,21 @@ def dica(l,c):
 
     return valores_possiveis
 
-def tabelaCompletada():
-    completo = True
-    for i in range(9):
-        for j in range(9):
-            if jogo[i][j] == " ":
+def tabelaCompletada(): # Confere se ainda tem algum espaco vazio na tabela
+    completo = True # Partimos do principio que ela esta completa
+
+    i = 0
+    while i <= 8 and completo:
+        j = 0
+
+        while j <= 8 and completo:
+            if jogo[i][j] == " ":   # Caso alguma posicao tenha o " ", o seu status de completo recebe False
                 completo = False
+            j+=1
+
+        i += 1
     
-    return completo
+    return completo #Retorna se ela estah completa ou nao
 
 def podeSerAdicionado(l,c, valor):  # Nos dira se a jogada eh valida ou nao
     possiveis = dica(l,c)
