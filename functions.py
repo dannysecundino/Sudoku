@@ -1,4 +1,4 @@
-import os                                                           # Estamos utilizando apenas para limpar o output
+import os                                                           # Estamos utilizando apenas para limpar o terminal
 
 jogo = [[" ", " ", " ", " ", " ", " ", " ", " ", " "],              # Essa matriz representara o jogo por completo. Nela, serao adicionadas as pistas e as jogadas do usuario
         [" ", " ", " ", " ", " ", " ", " ", " ", " "],
@@ -9,35 +9,6 @@ jogo = [[" ", " ", " ", " ", " ", " ", " ", " ", " "],              # Essa matri
         [" ", " ", " ", " ", " ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " ", " ", " ", " ", " "]]       
-
-matriz1x1 = [[" ", " ", " "],                                      # Cada matriz 3x3 dentro da grande matriz 81x81
-            [" ", " ", " "],
-            [" ", " ", " "]]
-matriz1x2 = [[" ", " ", " "],
-            [" ", " ", " "],
-            [" ", " ", " "]]
-matriz1x3 = [[" ", " ", " "],
-            [" ", " ", " "],
-            [" ", " ", " "]]
-matriz2x1 = [[" ", " ", " "],
-            [" ", " ", " "],
-            [" ", " ", " "]]
-matriz2x2 = [[" ", " ", " "],
-            [" ", " ", " "],
-            [" ", " ", " "]]
-matriz2x3 = [[" ", " ", " "],
-            [" ", " ", " "],
-            [" ", " ", " "]]
-matriz3x1 = [[" ", " ", " "],
-            [" ", " ", " "],
-            [" ", " ", " "]]
-matriz3x2 = [[" ", " ", " "],
-            [" ", " ", " "],
-            [" ", " ", " "]]
-matriz3x3 = [[" ", " ", " "],
-            [" ", " ", " "],
-            [" ", " ", " "]]
-       
 
 pista = [[False, False, False, False, False, False, False, False, False], # Criamos essa matriz para conferir se a coordenada que o jogador tentou fazer alguma acao (deletar ou alterar) eh uma pista ou nao
          [False, False, False, False, False, False, False, False, False],
@@ -122,33 +93,68 @@ def excluir(l,c):
     if pista[l][c] and jogo[l][c] != " ":                                             # Pistas nao podem seer excluidas
         jogo[l][c] = " "                                    # Excluindo o valor caso aquelas condicoes tenham sido atendidas
 
-def dica(c,l):
-    valores_possiveis = [1,2,3,4,5,6,7,8,9]
-    for i in range (9): #conferir a linha, coluna e 3x3s
-        for j in range (1,10):
-            if (jogo[c][i] == j) or (jogo[i][l] == j):
-                valores_possiveis.remove(j)
-                if c == 0 or c == 1 or c == 2:
-                    if l == 0 or l == 1 or l == 2:
-                        matriz1x1.remove(j)
-                    elif l == 3 or l == 4 or l == 5:
-                        matriz1x2.remove(j)
-                    else:
-                        matriz1x3.remove(j)
-                elif c == 3 or c == 4 or c == 5:
-                    if l == 0 or l == 1 or l == 2:
-                        matriz2x1.remove(j)
-                    elif l == 3 or l == 4 or l == 5:
-                        matriz2x2.remove(j)
-                    else:
-                        matriz2x3.remove(j)
-                else:
-                    if l == 0 or l == 1 or l == 2:
-                        matriz3x1.remove(j)
-                    elif l == 3 or l == 4 or l == 5:
-                        matriz3x2.remove(j)
-                    else:
-                        matriz3x3.remove(j)
+def testesRestentes(l,c):   # Essa funcao nos ajudara na funcao dica(), ja que ela ira dar dar o restante de testes necessarios de acordo com a a posicao relativa na matriz 3x3 em que a linha e a coluna correspondente estao incicando
+    p = str(l) + str(c)         # Para facilitar os testes, usaremos a concatenacao das stirngs dos valores dados como parametros
+
+
+    if p == "00" or p == "03" or p == "06" or p == "30" or p == "33" or p == "36" or p == "60" or p == "63" or p == "66":
+        testes_restantes = [jogo[l+1][c+1], jogo[l+2][c+1], jogo[l+1][c+2], jogo[l+2][c+2]]
+    
+    elif p == "01" or p == "04" or p == "07" or p == "31" or p == "34" or p == "37" or p == "61" or p == "64" or p == "67":
+        testes_restantes = [jogo[l+1][c-1], jogo[l+1][c+1], jogo[l+2][c-1], jogo[l+2][c+1]]
+
+    elif p == "02" or p == "05" or p == "08" or p == "32" or p == "35" or p == "38" or p == "62" or p == "65" or p == "68":
+        testes_restantes = [jogo[l+1][c-1], jogo[l+2][c-1], jogo[l+1][c-2], jogo[l+2][c-2]]
+
+    elif p == "10" or p == "13" or p == "16" or p == "40" or p == "43" or p == "46" or p == "70" or p == "73" or p == "76":
+        testes_restantes = [jogo[l-1][c+1], jogo[l-1][c+2], jogo[l+1][c+1], jogo[l+1][c+2]]
+
+    elif p == "11" or p == "14" or p == "17" or p == "41" or p == "44" or p == "47" or p == "71" or p == "74" or p == "77":
+        testes_restantes = [jogo[l-1][c-1], jogo[l-1][c-1], jogo[l+1][c-1], jogo[l+1][c+1]]
+    
+    elif p == "12" or p == "15" or p == "18" or p == "42" or p == "45" or p == "48" or p == "72" or p == "75" or p == "78":
+        testes_restantes = [jogo[l-1][c-2], jogo[l-1][c-1], jogo[l+1][c-2], jogo[l+1][c-1]]
+
+    elif p == "20" or p == "23" or p == "26" or p == "50" or p == "53" or p == "56" or p == "80" or p == "83" or p == "86":
+        testes_restantes = [jogo[l-1][c+1], jogo[l-2][c+1], jogo[l-1][c+2], jogo[l-2][c+2]]
+
+    elif p == "21" or p == "24" or p == "27" or p == "51" or p == "54" or p == "57" or p == "81" or p == "84" or p == "87":
+        testes_restantes = [jogo[l-2][c-1], jogo[l-1][c-1], jogo[l-2][c+1], jogo[l-1][c+1]]
+    
+    elif p == "22" or p == "25" or p == "28" or p == "52" or p == "55" or p == "58" or p == "82" or p == "85" or p == "88":
+        testes_restantes = [jogo[l-2][c-2], jogo[l-1][c-2], jogo[l-2][c-1], jogo[l-1][c-1]]
+
+    return testes_restantes
+
+def dica(l,c):
+    
+    # Vamos partir da suposicao de que todos os valores estao disponiveis ate que se prove o contrario
+    valores_possiveis = ["1","2","3","4","5","6","7","8","9"]
+    nao_pode = []                           # Vamos adicionar os valores que nao sao possiveis qui para depois retira-los
+
+
+    # Conferindo a linha e a coluna
+    for i in range(9):
+        if i != l:  # Conferindo a coluna
+            if jogo[i][c] != " ":
+                nao_pode.append(jogo[i][c])
+        if i != c:  # Conferinndo a linha
+            if jogo[l][i] != " ":
+                nao_pode.append(jogo[l][i])
+
+    # Conferindo (o restante) da matriz 3x3 na qual a posicao se encontra
+    resto = testesRestentes(l,c)
+
+    for item in resto:
+        if item != " ":
+            nao_pode.append(item)
+
+    # Agora a lista nao_pode tem todos os valores impossiveis
+
+    valores_possiveis = set(valores_possiveis) - set(nao_pode)  # Transformamos as listas em conjuntos para podermos subtrair um do outro
+    valores_possiveis = list(valores_possiveis)
+
+
     return valores_possiveis
 
 def tabelaCompletada():
@@ -159,3 +165,15 @@ def tabelaCompletada():
                 completo = False
     
     return completo
+
+def podeSerAdicionado(l,c, valor):  # Nos dira se a jogada eh valida ou nao
+    possiveis = dica(l,c)
+
+    pode = False    # Parte-se do principio de que o valor nao eh possivel
+
+    for item in possiveis:
+        if item == valor:   # Se o valor for igual a algum dos valores possiveis, entao a funcao retornara que pode ser adicionado (True)
+            pode = True
+
+    
+    return pode

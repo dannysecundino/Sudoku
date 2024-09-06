@@ -9,33 +9,62 @@ for coordenadas in linhas:                  # Estamos percorrendo todas as linha
 fu.tabelaSudoku("")                           # A tabela ja sera printada com as pistas
   
 
-while not fu.tabelaCompletada():     #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Provisorio!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    entrada = input("       Digite a sua entrada: ")
-    entrada = fu.formata(entrada)
-    #print(entrada)
-    l = entrada[1]
-    c = entrada[0]
-    if entrada[2] == '!':   # Para excluir uma posicao
+while not fu.tabelaCompletada(): # Esse laco vai se repetir enquanto a tabela nao estiver completa
+
+    #Recebendo uma entrada
+    entrada = input("   Digite a sua entrada: ")
+    entrada = fu.formata(entrada)   # Trantando a entrada dada
+    l = entrada[1]                  # Pegando a linha
+    c = entrada[0]                  #   Pegando a coluna
+
+
+
+    # Agora vamos trabalhar com o que recebemos do input() e que foi tratado pela funcao formata()
+
+    # Para excluir uma posicao
+    if entrada[2] == '!':                                              
         if fu.pista[l][c]:                                             # Pistas nao podem seer excluidas
             alerta = "Nao se pode excluir uma pista!"
-        elif fu.jogo[l][c] == " ":                                   #Espaços vazios não devem ser deletados
+        elif fu.jogo[l][c] == " ":                                     # Espaços vazios não devem ser deletados
             alerta = "Nao se pode excluir uma posicao vazia!"
-        else:
-            fu.jogo[l][c] = " "                                    # Excluindo o valor caso aquelas condicoes tenham sido atendidas
+        else:                                                          # Excluindo o valor caso aquelas condicoes tenham sido atendidas
+            fu.jogo[l][c] = " "                                        
             alerta = "Valor excluido!"
-    elif entrada[2] == '?': # Para saber as possibilidades daquela posicao
-        alerta = f"Possibilidades: {fu.dica(c, l)}"
-    else:                   # Para adiconar um valor ao jogo
-        if not fu.pista[l][c]: #falta uma função para dizer se o valor pode ou não
-            if fu.jogo[l][c] != " ":
-                certeza = input("Voce deseja substituir o valor atual? [S/N] ")
-                certeza = certeza.upper()
-                if certeza == "S":
+
+
+    # Para saber as possibilidades daquela posicao
+    elif entrada[2] == '?':                                            
+        alerta = f"Possibilidades: {fu.dica(l,c)}!"
+
+
+    # Para adiconar um valor ao jogo
+    else:          
+        if fu.podeSerAdicionado(l, c, entrada[2]):  # O valor soh pode ser adicionado se ele estiver na lista de dicas
+
+            if not fu.pista[l][c]:  # Uma pista nao pode ser substituída
+
+                if fu.jogo[l][c] != " ":    # Sobrescrever o valor 
+
+                    certeza = input("Voce deseja substituir o valor atual? [S/N] ")
+                    certeza = certeza.upper()
+                    if certeza == "S":    # Garantir que o usuario quer sobrescrever o valor
+                        fu.jogo[l][c] = entrada[2]
+                        alerta = "Valor alterado!"
+                    else:                 # Caso o usuario nao queira sobrescrever o valor
+                        alerta = "Jogue novamente!"
+
+                else:                       # Adicionar Valor
                     fu.jogo[l][c] = entrada[2]
-                    alerta = "Valor alterado!"
-            else: 
-                fu.jogo[l][c] = entrada[2]
-                alerta = "Valor adicionado!"
+                    alerta = "Valor adicionado!"
+
+            else:   # Uma pista nao pode ser substituída                         
+                alerta = "Voce nao pode sobrescrever uma pista!"
+
+        else:   # O valor soh pode ser adicionado se ele estiver na lista de dicas
+            alerta = "Esse valor nao pode ser adicionado!"
+
+
+    # Printando a nova tabela apos as alteracoes da jogada
     fu.tabelaSudoku(alerta)
 
     
