@@ -1,31 +1,31 @@
-import functions as fu                      # Estamos importando as funções do arquivo "functions.py"
-import sys                                  # Importando a biblioteca para 
-import os                                   # Estamos utilizando apenas para limpar o terminal
+import functions as fu                         # Estamos importando as funções do arquivo "functions.py"
+import sys                                     # Importando a biblioteca para 
+import os                                      # Estamos utilizando apenas para limpar o terminal
 
 
 
 
 # Recebendo arquivo
-arquivos = sys.argv                         # Esta lendo as informações dadas no terminal
-arquivo = open(arquivos[1], "r")            # Esta abrindo o arquivo com o nome dado no terminal
+arquivos = sys.argv                             # Esta lendo as informações dadas no terminal
+arquivo = open(arquivos[1], "r")                # Esta abrindo o arquivo com o nome dado no terminal
 linhas = arquivo.readlines()  
 
-erroTabela = False  # Ira retornar o erro de ferimento das regras do jogo nas pistas caso ele ocorra
-erroNumeroDePistas = False  # Ira retornar o erro de numero de pistas fora do intervalo [1,80] caso ele ocorra
-numeroDePistas = 0  # Contralara o numero de pistas
+erroTabela = False                              # Ira retornar o erro de ferimento das regras do jogo nas pistas caso ele ocorra
+erroNumeroDePistas = False                      # Ira retornar o erro de numero de pistas fora do intervalo [1,80] caso ele ocorra
+numeroDePistas = 0                              # Contralara o numero de pistas
 errosDeFormatacaoPistas = 0
 
-for coordenadas in linhas:                  # Estamos percorrendo todas as linhas do arquivo aberto
-    if coordenadas != "":                   # Testando se a linha nao estah vazia
+for coordenadas in linhas:                      # Estamos percorrendo todas as linhas do arquivo aberto
+    if coordenadas != "":                       # Testando se a linha nao estah vazia
         coordenadas = fu.formata(coordenadas)   # Transformando as coordenadas em uma lista
 
         l = coordenadas[1]
         c = coordenadas[0]
         valor = coordenadas[2]
         
-        if l != "erro" and c != "erro" and valor != "erro":
+        if (l != "erro") and (c != "erro") and (valor != "erro"):
             if fu.podeSerAdicionado(l,c,valor):
-                fu.setPista(l,c,valor) # Adicionando as pistas na matriz principal do jogo
+                fu.setPista(l,c,valor)          # Adicionando as pistas na matriz principal do jogo
                 numeroDePistas += 1
             else:
                 erroTabela = True

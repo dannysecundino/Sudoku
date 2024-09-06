@@ -1,6 +1,6 @@
-import os                                                           # Estamos utilizando apenas para limpar o terminal
+import os                             # Estamos utilizando apenas para limpar o terminal
 
-jogo = [[" ", " ", " ", " ", " ", " ", " ", " ", " "],              # Essa matriz representara o jogo por completo. Nela, serao adicionadas as pistas e as jogadas do usuario
+jogo = [[" ", " ", " ", " ", " ", " ", " ", " ", " "],  # Essa matriz representara o jogo por completo. Nela, serao adicionadas as pistas e as jogadas do usuario
         [" ", " ", " ", " ", " ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " ", " ", " ", " ", " "],
@@ -20,8 +20,8 @@ pista = [[False, False, False, False, False, False, False, False, False], # Cria
          [False, False, False, False, False, False, False, False, False],
          [False, False, False, False, False, False, False, False, False]]
     
-def tabelaSudoku(alerta):                                                 # Visualizacao do sudoku e do menu
-    os.system("cls")                                                # TO DO: em Linux, eh "clear"
+def tabelaSudoku(alerta):             # Visualizacao do sudoku e do menu
+    os.system("cls")                  # TO DO: em Linux, eh "clear"
 
     print("<<<==========| SUDOKU DE FuP |==========>>>\n")  #Cabecalho
 
@@ -45,7 +45,7 @@ def tabelaSudoku(alerta):                                                 # Visu
     print("\n         >>>==================<<<")
     print(alerta)
 
-def letraParaNumero(letra):                                    # Funcao para tranformar os inputs de letras para numeros (que serao usados na manipulacao das colunas das matrizes)
+def letraParaNumero(letra):           # Funcao para tranformar os inputs de letras para numeros (que serao usados na manipulacao das colunas das matrizes)
     if letra == "A" or letra == "a":
         return 0
     elif letra == "B" or letra == "b":
@@ -67,15 +67,15 @@ def letraParaNumero(letra):                                    # Funcao para tra
     else:
         return "erro"
       
-def setPista(l, c, valor):                            # Estamos demarcando se a coordenada eh ou nao uma pista (pois elas sao inalteradas e indeletaveis)
-    jogo[l][c] = valor                                            # A linha eh "-1", pois o usuario vai colocar uma entrada entre [1,9], e o programa vai trabalhar com numeros de [0,8]
+def setPista(l, c, valor):            # Estamos demarcando se a coordenada eh ou nao uma pista (pois elas sao inalteradas e indeletaveis)
+    jogo[l][c] = valor                # A linha eh "-1", pois o usuario vai colocar uma entrada entre [1,9], e o programa vai trabalhar com numeros de [0,8]
     pista[l][c] = True
     
-def formata(s):                                               # Como o usuario eh burro, nos precisamos remover todos os " ", "," e ":"; alem disso, vamos formatar outras coisas da entrada para facilitar a manipulação do codigo
-    s = s.replace(" ","")                                     # A forma que utilizamos foi usando a funcao replace que troca um elemento qualquer da string por outro
-    s = s.replace(",","")                                     # Trocamos " ", "," e ":" por "" (nulo)
+def formata(s):                       # Como o usuario eh burro, nos precisamos remover todos os " ", "," e ":"; alem disso, vamos formatar outras coisas da entrada para facilitar a manipulação do codigo
+    s = s.replace(" ","")             # A forma que utilizamos foi usando a funcao replace que troca um elemento qualquer da string por outro
+    s = s.replace(",","")             # Trocamos " ", "," e ":" por "" (nulo)
     s = s.replace(":","")
-    s = list(s)                                               # Tranformamos a string em lista
+    s = list(s)                       # Tranformamos a string em lista
 
     if s[0] == "!":
         operacao = s[0]
@@ -87,7 +87,7 @@ def formata(s):                                               # Como o usuario e
         s.append(operacao)
     else:
         s[2] = int(s[2])
-        if s[2] < 1 or s[2] > 9:
+        if (s[2] < 1) or (s[2] > 9):
             s[2] = "erro"
         else: 
             s[2] = str(s[2])
@@ -103,12 +103,12 @@ def formata(s):                                               # Como o usuario e
     
     return s
 
-def excluir(l,c):
-    if pista[l][c] and jogo[l][c] != " ":                                             # Pistas nao podem seer excluidas
+def excluir(l,c):                     # Conferir e Excluir 
+    if pista[l][c] and jogo[l][c] != " ":                   # Pistas nao podem seer excluidas
         jogo[l][c] = " "                                    # Excluindo o valor caso aquelas condicoes tenham sido atendidas
 
-def testesRestentes(l,c):   # Essa funcao nos ajudara na funcao dica(), ja que ela ira dar dar o restante de testes necessarios de acordo com a a posicao relativa na matriz 3x3 em que a linha e a coluna correspondente estao incicando
-    p = str(l) + str(c)         # Para facilitar os testes, usaremos a concatenacao das stirngs dos valores dados como parametros
+def testesRestentes(l,c):             # Essa funcao nos ajudara na funcao dica(), ja que ela ira dar dar o restante de testes necessarios de acordo com a a posicao relativa na matriz 3x3 em que a linha e a coluna correspondente estao incicando
+    p = str(l) + str(c)               # Para facilitar os testes, usaremos a concatenacao das stirngs dos valores dados como parametros
 
 
     if p == "00" or p == "03" or p == "06" or p == "30" or p == "33" or p == "36" or p == "60" or p == "63" or p == "66":
@@ -140,7 +140,7 @@ def testesRestentes(l,c):   # Essa funcao nos ajudara na funcao dica(), ja que e
 
     return testes_restantes
 
-def dica(l,c):
+def dica(l,c):                        # Funcao para conseguirmos saber a dica usando o operador "?"
     
     # Vamos partir da suposicao de que todos os valores estao disponiveis ate que se prove o contrario
     valores_possiveis = ["1","2","3","4","5","6","7","8","9"]
@@ -171,36 +171,35 @@ def dica(l,c):
 
     return valores_possiveis
 
-def tabelaCompletada(): # Confere se ainda tem algum espaco vazio na tabela
-    completo = True # Partimos do principio que ela esta completa
+def tabelaCompletada():               # Confere se ainda tem algum espaco vazio na tabela
+    completo = True                   # Partimos do principio que ela esta completa
 
     i = 0
     while i <= 8 and completo:
         j = 0
 
         while j <= 8 and completo:
-            if jogo[i][j] == " ":   # Caso alguma posicao tenha o " ", o seu status de completo recebe False
+            if jogo[i][j] == " ":     # Caso alguma posicao tenha o " ", o seu status de completo recebe False
                 completo = False
             j+=1
 
         i += 1
     
-    return completo #Retorna se ela estah completa ou nao
+    return completo                   #Retorna se ela estah completa ou nao
 
-def podeSerAdicionado(l,c, valor):  # Nos dira se a jogada eh valida ou nao
+def podeSerAdicionado(l,c, valor):    # Nos dira se a jogada eh valida ou nao
     possiveis = dica(l,c)
 
-    pode = False    # Parte-se do principio de que o valor nao eh possivel
+    pode = False                      # Parte-se do principio de que o valor nao eh possivel
 
     for item in possiveis:
-        if item == valor:   # Se o valor for igual a algum dos valores possiveis, entao a funcao retornara que pode ser adicionado (True)
+        if item == valor:             # Se o valor for igual a algum dos valores possiveis, entao a funcao retornara que pode ser adicionado (True)
             pode = True
 
     
     return pode
 
-def acaoDoUsuario(l,c,valor):
-    # Agora vamos trabalhar com o que recebemos do input() e que foi tratado pela funcao formata()
+def acaoDoUsuario(l,c,valor):         # Agora vamos trabalhar com o que recebemos do input() e que foi tratado pela funcao formata()
 
     # Para excluir uma posicao
     if valor == '!':                                              
@@ -245,5 +244,4 @@ def acaoDoUsuario(l,c,valor):
             alerta = "Voce nao pode sobrescrever uma pista!"
         
 
-    return alerta   # Sera mostrado na hora de printar a tabela
-            
+    return alerta   # Sera mostrado na hora de printar a tabela         
