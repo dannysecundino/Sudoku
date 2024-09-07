@@ -21,7 +21,7 @@ pista = [[False, False, False, False, False, False, False, False, False], # Cria
          [False, False, False, False, False, False, False, False, False]]
     
 def tabelaSudoku(alerta):             # Visualizacao do sudoku e do menu
-    os.system("cls")                  # TO DO: em Linux, eh "clear"
+    os.system("cls")                  # TODO: em Linux, eh "clear"
 
     print("<<<==========| SUDOKU DE FuP |==========>>>\n")  #Cabecalho
 
@@ -80,11 +80,11 @@ def formata(s):                       # Como o usuario eh burro, nos precisamos 
     if s[0] == "!":
         operacao = s[0]
         s.remove(operacao)
-        s.append(operacao)
+        s.append(operacao)  # Joga a operacao para o fim da lista
     elif s[0] == "?":
         operacao = s[0]
         s.remove(operacao)
-        s.append(operacao)
+        s.append(operacao)  # Joga a operacao para o fim da lista
     else:
         s[2] = int(s[2])
         if (s[2] < 1) or (s[2] > 9):
@@ -96,7 +96,7 @@ def formata(s):                       # Como o usuario eh burro, nos precisamos 
 
     s[1] = int(s[1])
     
-    if s[1] >=0 and s[1] <=8:
+    if s[1] >=1 and s[1] <=9:
         s[1] = s[1] - 1
     else:
         s[1] = "erro"
@@ -218,30 +218,95 @@ def acaoDoUsuario(l,c,valor):         # Agora vamos trabalhar com o que recebemo
 
 
     # Para adiconar um valor ao jogo
-    else:          
-        if not pista[l][c]:  # O valor soh pode ser adicionado se ele estiver na lista de dicas
+    else:   
+        if (l != "erro") and (c != "erro") and (valor != "erro"):     
 
-            if podeSerAdicionado(l, c, valor):  # Uma pista nao pode ser substituída
+            if not pista[l][c]:  # O valor soh pode ser adicionado se ele estiver na lista de dicas
 
-                if jogo[l][c] != " ":    # Sobrescrever o valor 
+                if podeSerAdicionado(l, c, valor):  # Uma pista nao pode ser substituída
 
-                    certeza = input("Voce deseja substituir o valor atual? [S/N] ")
-                    certeza = certeza.upper()   # Transforma em Caixa-Alta
-                    if certeza == "S":    # Garantir que o usuario quer sobrescrever o valor
+                    if jogo[l][c] != " ":    # Sobrescrever o valor 
+
+                        print("Essa posicao ja estah ocupada.")
+                        certeza = input("Voce deseja substituir o valor atual? [S/N] ")
+                        certeza = certeza.upper()   # Transforma em Caixa-Alta
+                        if certeza == "S":    # Garantir que o usuario quer sobrescrever o valor
+                            jogo[l][c] = valor
+                            alerta = "Valor alterado!"
+                        else:                 # Caso o usuario nao queira sobrescrever o valor
+                            alerta = "Jogue novamente!"
+
+                    else:                       # Adicionar Valor
                         jogo[l][c] = valor
-                        alerta = "Valor alterado!"
-                    else:                 # Caso o usuario nao queira sobrescrever o valor
-                        alerta = "Jogue novamente!"
+                        alerta = "Valor adicionado!"
 
-                else:                       # Adicionar Valor
-                    jogo[l][c] = valor
-                    alerta = "Valor adicionado!"
+                else:   # Uma pista nao pode ser substituída                         
+                    alerta = "Esse valor nao pode ser adicionado (Fere as regras do jogo)!"
 
-            else:   # Uma pista nao pode ser substituída                         
-                alerta = "Esse valor nao pode ser adicionado (Fere as regras do jogo)!"
-
-        else:   # O valor soh pode ser adicionado se ele estiver na lista de dicas
-            alerta = "Voce nao pode sobrescrever uma pista!"
+            else:   # O valor soh pode ser adicionado se ele estiver na lista de dicas
+                alerta = "Voce nao pode sobrescrever uma pista!"
         
-
+        else: 
+            alerta = "Entrada invalida! Tente novamente!"
     return alerta   # Sera mostrado na hora de printar a tabela         
+
+def errorPistas(erroTabela,erroNumeroDePistas,alerta):
+    os.system("cls")    # TODO: trocar por clear
+
+    print(alerta)
+    print("")
+    
+    print("==============================>>ERROR<<==============================")
+    print("")
+    
+    # Usaremos dois if's, porque, caso ocorra de os dois erros acontecerem, isso deve ser informado para o usuario
+    if erroTabela:
+        print("=> As pistas fornecidas feriram as regras do jogo.")
+    if erroNumeroDePistas:
+        print("=> O numero de pistas fornecidas estah fora do intervalo [1,80].") 
+    
+    print("")
+    print("--------------------------Tente Novamente!--------------------------")     
+
+def fimDeJogo():
+    os.system("cls")                  # TODO: em Linux, eh "clear"
+
+    print("<<<==========| SUDOKU DE FuP |==========>>>\n")  #Cabecalho
+
+    
+    print("    A   B   C    D   E   F    G   H   I")                # Iniciando a visualizacao do sudoku
+    for i in range(9):                                              # Vai percorrer as 9 linhas (0,9)
+        if i == 3 or i == 6:                                        # Nas linhas apos o a linha "3" e a linha "6" o padrao de linha muda de "+" e "-" para "+" e "="
+            print(" ++===+===+===++===+===+===++===+===+===++ ")    # Linhas com "+" e "="
+        else:                                                       
+            print(" ++---+---+---++---+---+---++---+---+---++ ")    # Linhas mais comuns
+        print(f"{i+1}|| {jogo[i][0]} | {jogo[i][1]} | {jogo[i][2]} || {jogo[i][3]} | {jogo[i][4]} | {jogo[i][5]} || {jogo[i][6]} | {jogo[i][7]} | {jogo[i][8]} ||{i+1}")
+    print(" ++---+---+---++---+---+---++---+---+---++ ")            
+    print("    A   B   C    D   E   F    G   H   I")                # Finalizacao da visualizacao do sudoku
+    print("\n<<<=====================================>>>\n""")
+    
+
+
+    # Mensagem de vitoria
+    you_win =[" VVV     VVV	OOOOOOOO      CCCCCCC     EEEEEEEE",
+            "  VVV   VVV    OO      OO    CC          EE",
+            "    VVVVV      OO      OO    CC          EEEE",
+            "     VVV       OO      OO    CC          EE",
+            "      V         OOOOOOOO      CCCCCCC     EEEEEEEE",
+            "",
+            " GGGGGGGG       AAAAAAAA     NN     NN   HH     HH    OOOOOOOO     UU      UU       !!!!!!!",
+            "GG             AA      AA    NNNN   NN   HH     HH   OO      OO    UU      UU       !!!!!!!",
+            "GG  GGGGGG     AAAAAAAAAA    NN  NN NN   HHHHHHHHH   OO      OO    UU      UU        !!!!!",
+            "GG      GG     AA      AA    NN    NNN   HH     HH   OO      OO    UU      UU         !!!",
+            " GGGGGGGG      AA      AA    NN     NN   HH     HH    OOOOOOOO      UUUUUUUU           O"]
+    
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+    print("")   
+
+    for linha in you_win:
+        print(linha)
+
+    print("")   
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+
+

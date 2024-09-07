@@ -7,7 +7,7 @@ import os                                      # Estamos utilizando apenas para 
 
 # Recebendo arquivo
 arquivos = sys.argv                             # Esta lendo as informações dadas no terminal
-arquivo = open(arquivos[0], "r")                # Esta abrindo o arquivo com o nome dado no terminal
+arquivo = open(arquivos[1], "r")                # Esta abrindo o arquivo com o nome dado no terminal
 linhas = arquivo.readlines()  
 
 erroTabela = False                              # Ira retornar o erro de ferimento das regras do jogo nas pistas caso ele ocorra
@@ -32,7 +32,7 @@ for coordenadas in linhas:                      # Estamos percorrendo todas as l
         else:
             errosDeFormatacaoPistas += 1
         
-alerta = f"Houveram {errosDeFormatacaoPistas} pistas declaradas com erros de formatacao!"
+alerta = f"Houveram {errosDeFormatacaoPistas} pistas declaradas de forma invalida!"
 
 if numeroDePistas < 1 or numeroDePistas > 80:
     erroNumeroDePistas = True
@@ -69,19 +69,7 @@ if not erroTabela and not erroNumeroDePistas:   # Caso não haja erros na captac
         fu.tabelaSudoku(alerta)
 
     #PROVISORIO: saindo do laco
-    print("O JOGO ACABOU!!!")     
+    fu.fimDeJogo()
 
 else:   # Caso haja algum erro na captacao de pistas (erro de regras ou erro de numro de pistas)
-    os.system("cls")
-
-    print(alerta)
-
-    print("=====>>ERROR<<=====")
-    
-    # Usaremos dois if's, porque, caso ocorra de os dois erros acontecerem, isso deve ser informado para o usuario
-    if erroTabela:
-        print("As pistas fornecidas feriram as regras do jogo.")
-    if erroNumeroDePistas:
-        print("O numero de pistas fornecidas estah fora do intervalo [1,80].") 
-    
-    print("Tente Novamente!")        
+    fu.errorPistas(erroTabela,erroNumeroDePistas,alerta)
