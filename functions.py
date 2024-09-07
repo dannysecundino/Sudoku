@@ -148,31 +148,38 @@ def dica(l,c):                        # Funcao para conseguirmos saber a dica us
     valores_possiveis = ["1","2","3","4","5","6","7","8","9"]
     nao_pode = []                           # Vamos adicionar os valores que nao sao possiveis qui para depois retira-los
 
+    if (not pista[l][c]) and (jogo[l][c] == " "):   # A dica() so deve dizer as possibilidadess para celulas vazias
 
-    # Conferindo a linha e a coluna
-    for i in range(9):
-        if i != l:  # Conferindo a coluna
-            if jogo[i][c] != " ":
-                nao_pode.append(jogo[i][c])
-        if i != c:  # Conferinndo a linha
-            if jogo[l][i] != " ":
-                nao_pode.append(jogo[l][i])
+        # Conferindo a linha e a coluna
+        for i in range(9):
+            if i != l:  # Conferindo a coluna
+                if jogo[i][c] != " ":
+                    nao_pode.append(jogo[i][c])
+            if i != c:  # Conferinndo a linha
+                if jogo[l][i] != " ":
+                    nao_pode.append(jogo[l][i])
 
-    # Conferindo (o restante) da matriz 3x3 na qual a posicao se encontra
-    resto = testesRestentes(l,c)
+        # Conferindo (o restante) da matriz 3x3 na qual a posicao se encontra
+        resto = testesRestentes(l,c)
 
-    for item in resto:
-        if item != " ":
-            nao_pode.append(item)
+        for item in resto:
+            if item != " ":
+                nao_pode.append(item)
 
-    # Agora a lista nao_pode tem todos os valores impossiveis
+        # Agora a lista nao_pode tem todos os valores impossiveis
 
-    valores_possiveis = set(valores_possiveis) - set(nao_pode)  # Transformamos as listas em conjuntos para podermos subtrair um do outro
-    valores_possiveis = list(valores_possiveis)
-    valores_possiveis = sorted(valores_possiveis)
+        valores_possiveis = set(valores_possiveis) - set(nao_pode)  # Transformamos as listas em conjuntos para podermos subtrair um do outro
+        valores_possiveis = list(valores_possiveis)
+        valores_possiveis = sorted(valores_possiveis)
 
+        return f"Possibilidades: {valores_possiveis}"
 
-    return valores_possiveis
+    else:
+        if pista[l][c]:
+            return "Essa posicao contem uma pista! Nao ha dicas para essa celula!"
+        else:
+            return "Essa posicao ja estah ocupada! Nao ha dicas para essa celula!"
+
 
 def tabelaCompletada():               # Confere se ainda tem algum espaco vazio na tabela
     completo = True                   # Partimos do principio que ela esta completa
@@ -217,7 +224,7 @@ def acaoDoUsuario(l,c,valor):         # Agora vamos trabalhar com o que recebemo
 
     # Para saber as possibilidades daquela posicao
     elif valor == '?':                                            
-        alerta = f"Possibilidades: {dica(l,c)}"
+        alerta = dica(l,c)
 
 
     # Para adiconar um valor ao jogo
@@ -256,7 +263,24 @@ def acaoDoUsuario(l,c,valor):         # Agora vamos trabalhar com o que recebemo
 def errorPistas(erroTabela,erroNumeroDePistas,alerta):  # Essa funcao so sera chamada se houver algum erro na entrada das pistas, ou porque estao fora do intervalo [1,80], ou porque feriram as regras do jogo
     os.system("cls")    # TODO: trocar por clear
 
-    print(alerta)
+
+
+    print("<<<==========| SUDOKU DE FuP |==========>>>\n")  #Cabecalho
+
+    print("    A   B   C    D   E   F    G   H   I")                # Iniciando a visualizacao do sudoku
+    for i in range(9):                                              # Vai percorrer as 9 linhas (0,9)
+        if i == 3 or i == 6:                                        # Nas linhas apos o a linha "3" e a linha "6" o padrao de linha muda de "+" e "-" para "+" e "="
+            print(" ++===+===+===++===+===+===++===+===+===++ ")    # Linhas com "+" e "="
+        else:                                                       
+            print(" ++---+---+---++---+---+---++---+---+---++ ")    # Linhas mais comuns
+        print(f"{i+1}|| {jogo[i][0]} | {jogo[i][1]} | {jogo[i][2]} || {jogo[i][3]} | {jogo[i][4]} | {jogo[i][5]} || {jogo[i][6]} | {jogo[i][7]} | {jogo[i][8]} ||{i+1}")
+    print(" ++---+---+---++---+---+---++---+---+---++ ")            
+    print("    A   B   C    D   E   F    G   H   I")                # Finalizacao da visualizacao do sudoku
+    print("\n<<<=====================================>>>\n""")
+    print(f"ALERTA: {alerta}")
+
+
+
     print("\n==============================>>ERROR<<==============================\n")    
     # Usaremos dois if's, porque, caso ocorra de os dois erros acontecerem, isso deve ser informado para o usuario
     if erroTabela:
