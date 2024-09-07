@@ -1,8 +1,8 @@
 import os                             # Estamos utilizando apenas para limpar o terminal
 
 jogo = [[" ", " ", " ", " ", " ", " ", " ", " ", " "],  # Essa matriz representara o jogo por completo. Nela, serao adicionadas as pistas e as jogadas do usuario
-        [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " ", " ", " ", " ", " "],  # Primeiro voce coloca a linha que voce quer acessar, depois a coluna
+        [" ", " ", " ", " ", " ", " ", " ", " ", " "],  # Dessa forma jogo[l][c]
         [" ", " ", " ", " ", " ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " ", " ", " ", " ", " "],
@@ -43,7 +43,7 @@ def tabelaSudoku(alerta):             # Visualizacao do sudoku e do menu
     print("->   Excluir Valor: !<Coluna>,<Linha>")
     print("->  Possibilidades: ?<Coluna>,<Linha>")
     print("\n         >>>==================<<<")
-    print(alerta)
+    print(f"ALERTA: {alerta}")
 
 def letraParaNumero(letra):           # Funcao para tranformar os inputs de letras para numeros (que serao usados na manipulacao das colunas das matrizes)
     if letra == "A" or letra == "a":
@@ -71,21 +71,23 @@ def setPista(l, c, valor):            # Estamos demarcando se a coordenada eh ou
     jogo[l][c] = valor                # A linha eh "-1", pois o usuario vai colocar uma entrada entre [1,9], e o programa vai trabalhar com numeros de [0,8]
     pista[l][c] = True
     
-def formata(s):                       # Como o usuario eh burro, nos precisamos remover todos os " ", "," e ":"; alem disso, vamos formatar outras coisas da entrada para facilitar a manipulação do codigo
-    s = s.replace(" ","")             # A forma que utilizamos foi usando a funcao replace que troca um elemento qualquer da string por outro
-    s = s.replace(",","")             # Trocamos " ", "," e ":" por "" (nulo)
-    s = s.replace(":","")
-    s = list(s)                       # Tranformamos a string em lista
+def formata(s):                     # Como o usuario eh burro, nos precisamos remover todos os " ", "," e ":"; alem disso, vamos formatar outras coisas da entrada para facilitar a manipulação do codigo
+                                # A forma que utilizamos para o usuarios burros foi usando a funcao replace que troca um elemento qualquer da string por outro
+    s = s.replace(","," ")      # Trocamos todos "," por " "
+    s = s.replace(":"," ")      # Trocamos todos ":" por " "
+                                # Assim, uma string que seria "!A,2: 9" se transforma em "!A 2  9"
+    s = list(s.split())         # A agora basta dar um split e criar uma lista com todas as informacoes != de " "
 
-    if s[0] == "!":
-        operacao = s[0]
-        s.remove(operacao)
-        s.append(operacao)  # Joga a operacao para o fim da lista
-    elif s[0] == "?":
-        operacao = s[0]
-        s.remove(operacao)
-        s.append(operacao)  # Joga a operacao para o fim da lista
-    else:
+                                    # Como existe a possibilidade de ter uma operacao "!" e "?" como no exemplo das linhas acima
+    operador = list(s[0])       # Para isso, precisamos separar o primeiro elemento da lista que sempre será "?<Coluna>" ou somente "<Coluna>" na lista "operador"
+    if operador[0] == "!":      # Se o primeiro elemento dessa nova lista ("operador") for "!"
+        s[0] = operador[1]      # Significa que o segundo elemento da lista é a Coluna que querenos então devolvemos para a lista original "s" apenas a coluna
+        s.append(operador[0])   # Jogamos a operacao para o fim da lista "s"
+    elif operador[0] == "?":    # Se o primeiro elemento dessa nova lista ("operador") for "?"
+        s[0] = operador[1]       # Significa que o segundo elemento da lista é a Coluna que querenos então devolvemos para a lista original "s" apenas a coluna
+        s.append(operador[0])   # Jogamos a operacao para o fim da lista "s"
+
+    else:                       # Caso nao for colocado nenhum operador na entrada, significa que foi apenas "<Coluna>"
         s[2] = int(s[2])
         if (s[2] < 1) or (s[2] > 9):
             s[2] = "erro"
@@ -167,6 +169,7 @@ def dica(l,c):                        # Funcao para conseguirmos saber a dica us
 
     valores_possiveis = set(valores_possiveis) - set(nao_pode)  # Transformamos as listas em conjuntos para podermos subtrair um do outro
     valores_possiveis = list(valores_possiveis)
+    valores_possiveis = sorted(valores_possiveis)
 
 
     return valores_possiveis
@@ -250,25 +253,20 @@ def acaoDoUsuario(l,c,valor):         # Agora vamos trabalhar com o que recebemo
             alerta = "Entrada invalida! Tente novamente!"
     return alerta   # Sera mostrado na hora de printar a tabela         
 
-def errorPistas(erroTabela,erroNumeroDePistas,alerta):
+def errorPistas(erroTabela,erroNumeroDePistas,alerta):  # Essa funcao so sera chamada se houver algum erro na entrada das pistas, ou porque estao fora do intervalo [1,80], ou porque feriram as regras do jogo
     os.system("cls")    # TODO: trocar por clear
 
     print(alerta)
-    print("")
-    
-    print("==============================>>ERROR<<==============================")
-    print("")
-    
+    print("\n==============================>>ERROR<<==============================\n")    
     # Usaremos dois if's, porque, caso ocorra de os dois erros acontecerem, isso deve ser informado para o usuario
     if erroTabela:
         print("=> As pistas fornecidas feriram as regras do jogo.")
     if erroNumeroDePistas:
         print("=> O numero de pistas fornecidas estah fora do intervalo [1,80].") 
     
-    print("")
-    print("--------------------------Tente Novamente!--------------------------")     
+    print("\n--------------------------Tente Novamente!--------------------------")     
 
-def fimDeJogo():
+def fimDeJogo():                      # Essa funcao sera chamado quando o jogo acabar
     os.system("cls")                  # TODO: em Linux, eh "clear"
 
     print("<<<==========| SUDOKU DE FuP |==========>>>\n")  #Cabecalho
@@ -288,25 +286,21 @@ def fimDeJogo():
 
 
     # Mensagem de vitoria
-    you_win =[" VVV     VVV	OOOOOOOO      CCCCCCC     EEEEEEEE",
-            "  VVV   VVV    OO      OO    CC          EE",
-            "    VVVVV      OO      OO    CC          EEEE",
-            "     VVV       OO      OO    CC          EE",
-            "      V         OOOOOOOO      CCCCCCC     EEEEEEEE",
+    you_win =["                  VVV     VVV	  OOOOOOOO      CCCCCCC     EEEEEEEE",
+              "                   VVV   VVV     OO      OO    CC          EE",
+              "                    VVV VVV      OO      OO    CC          EEEE",
+              "                     VVVVV       OO      OO    CC          EE",
+              "                      VVV         OOOOOOOO      CCCCCCC     EEEEEEEE",
             "",
-            " GGGGGGGG       AAAAAAAA     NN     NN   HH     HH    OOOOOOOO     UU      UU       !!!!!!!",
-            "GG             AA      AA    NNNN   NN   HH     HH   OO      OO    UU      UU       !!!!!!!",
-            "GG  GGGGGG     AAAAAAAAAA    NN  NN NN   HHHHHHHHH   OO      OO    UU      UU        !!!!!",
-            "GG      GG     AA      AA    NN    NNN   HH     HH   OO      OO    UU      UU         !!!",
-            " GGGGGGGG      AA      AA    NN     NN   HH     HH    OOOOOOOO      UUUUUUUU           O"]
+            "      GGGGGGGG      AAAAAAAA     NN     NN   HH     HH    OOOOOOOO     UU      UU     !!!",
+            "     GG            AA      AA    NNNN   NN   HH     HH   OO      OO    UU      UU     !!!",
+            "     GG  GGGGGG    AAAAAAAAAA    NN  NN NN   HHHHHHHHH   OO      OO    UU      UU     !!!",
+            "     GG      GG    AA      AA    NN    NNN   HH     HH   OO      OO    UU      UU     !!!",
+            "      GGGGGGGG     AA      AA    NN     NN   HH     HH    OOOOOOOO      UUUUUUUU       O"]
     
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-    print("")   
-
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n")
     for linha in you_win:
-        print(linha)
-
-    print("")   
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+        print(linha)   
+    print("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
 
