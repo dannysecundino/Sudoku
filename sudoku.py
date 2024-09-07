@@ -22,15 +22,18 @@ for coordenadas in linhas:                      # Estamos percorrendo todas as l
         l = coordenadas[1]
         c = coordenadas[0]
         valor = coordenadas[2]
+        tamanhoDaPista = len(coordenadas)       
         
-        if (l != "erro") and (c != "erro") and (valor != "erro"):
+        if (l != "erro") and (c != "erro") and (valor != "erro"):           # Conferindo se ha erros na pista (letras fora de A a I ou Numeros fora do intervalo [1,9])
+
             if fu.podeSerAdicionado(l,c,valor):
                 fu.setPista(l,c,valor)          # Adicionando as pistas na matriz principal do jogo
                 numeroDePistas += 1
             else:
                 erroTabela = True
+
         else:
-            errosDeFormatacaoPistas += 1
+           errosDeFormatacaoPistas += 1
         
 alerta = f"Houveram {errosDeFormatacaoPistas} pistas declaradas de forma invalida!"
 
@@ -62,10 +65,16 @@ if not erroTabela and not erroNumeroDePistas:   # Caso não haja erros na captac
         entrada = fu.formata(entrada)   # Tratando a entrada dada
         l = entrada[1]                  # Pegando a linha
         c = entrada[0]                  #   Pegando a coluna
+        tamanhoDaEntrada = len(entrada)
 
-        alerta = fu.acaoDoUsuario(l, c, entrada[2])
 
-        # Printando a nova tabela apos as alteracoes da jogada
+        if (l != "erro") and (c != "erro") and (entrada[2] != "erro") and (tamanhoDaEntrada == 3):           # Conferindo se ha erros na entrada (letras fora de A a I ou Numeros fora do intervalo [1,9])
+            alerta = fu.acaoDoUsuario(l, c, entrada[2])
+        
+        else:
+            alerta = "Entrada invalida! Tente Novamente!"
+
+        # Printando a nova tabela apos as alteracoes da jogada e com o alerta correspondente
         fu.tabelaSudoku(alerta)
 
     #PROVISORIO: saindo do laco
