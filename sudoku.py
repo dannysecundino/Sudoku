@@ -1,4 +1,4 @@
-import functions as fu                         # Estamos importando as funções do arquivo "functions.py"
+import functions as fu                         # Estamos importando as funcoes que fizemos do arquivo "functions.py"
 import sys                                     # Importando a biblioteca para pegar o arquivo
 
 
