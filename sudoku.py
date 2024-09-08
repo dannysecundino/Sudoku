@@ -86,6 +86,72 @@ elif quantidadeDeArquivos == 3:                 # Modo BATCH
     linhasJogadas = arquivoJogadas.readlines()      # Todas as jogadas
 
 
+    # Percorreremos todas as linhas do arquivo de pistas aberto 
+    i = 0
+    erroConfiguracaoDicas = False
+    while (not erroConfiguracaoDicas) and (i <= len(linhasPistas) - 1): # Esse laco vai se repetir enquanto nao houver algum erro de configuracao de pistas e a linha que queremos acessar existe no arquivo
+
+        linha = linhasPistas[i]
+
+        if linha != "":                       # Testando se a linha nao estah vazia
+            linha = fu.formata(linha)   # Transformando as coordenadas em uma lista
+            l = linha[1]
+            c = linha[0]
+            valor = linha[2]
+      
+            
+            if (fu.jogo[l][c] == " " or fu.jogo[l][c] == valor) and fu.podeSerAdicionado(l,c,valor):   # Conferindo se o espaco que se quer preencher esta vazio ou eh o mesmo valor ja adiconado e se nao fere as regras do jogo
+
+                fu.setPista(l,c,valor)                              # Adicionando as pistas na matriz principal do jogo
+
+            else:                                                                                      # Caso se ponha uma nova dica para a mesma celula ou fira as regras do jogo
+                print("Configuracao de dicas invalida.")
+                erroConfiguracaoDicas = True
+
+
+        i += 1
+
+
+    
+
+    if not erroConfiguracaoDicas:   # O jogo so prossegue se nao hoveram erros de configuracao nas pistas
+        jogadasInvalidas = []
+
+
+        for linha in linhasJogadas:
+
+            # Preparando a possivel mensagem de jogada invalida
+            coordenadas = linha.split(": ")
+            coordenadas[1] = coordenadas[1].replace("\n","")     # Para evitar que o valor seja printado com a quebra de linha que vem apos ele
+            mensagem = f"A jogada ({coordenadas[0]}) = {coordenadas[1]} eh invalida!"   # Mensagem padrao. Caso de erro, sera adicionada na lista jogadas invalidas
+
+
+            # Fomatando a entrada
+            linha = fu.formata(linha)
+            l = linha[1]
+            c = linha[0]
+            valor = linha [2]
+
+
+            if fu.podeSerAdicionado(l,c,valor) and not fu.pista[l][c]:  # Se nao fere as regras e nao quiser ocupar o lugar de uma pista
+                fu.jogo[l][c] = valor                                   # O valor eh adicionado a matriz principal
+
+            else:                                                       # No caso de feriralguma regra ou quiser ocupar o lugar de uma pista
+                jogadasInvalidas.append(mensagem)
+        # O jogo ja acabou, soh falta apresentar as jogadas invalidas e conferir se a tabela foi completada
+
+
+        # Printando jogadas invalidas
+        for item in jogadasInvalidas:
+            print(item)
+
+        # Conferindo se a tabela foi completada
+        if fu.tabelaCompletada():                       # Vitoria
+            print("A grade foi preenchida com sucesso!")
+        else:                                           # Derrota
+            print("A grade nao foi preenchida!")
+
+
 
 
 
