@@ -17,7 +17,6 @@ if quantidadeDeArquivos == 2:                   # Modo INTERATIVO
     erroNumeroDePistas = False                      # Ira retornar o erro de numero de pistas fora do intervalo [1,80] caso ele ocorra
     numeroDePistas = 0                              # Controlara o numero de pistas
     errosDeFormatacaoPistas = 0
-    qualFoiQueDeuErro = []
 
     for coordenadas in linhas:                      # Estamos percorrendo todas as linhas do arquivo aberto
         if coordenadas != "":                       # Testando se a linha nao estah vazia
@@ -38,7 +37,6 @@ if quantidadeDeArquivos == 2:                   # Modo INTERATIVO
 
             else:
                 errosDeFormatacaoPistas += 1
-                qualFoiQueDeuErro.append(f"{coordenadas[0]},{coordenadas[1],coordenadas[2]}")
 
     alerta = f"Houveram {errosDeFormatacaoPistas} pistas declaradas de forma invalida!\n(Isto eh, Colunas com letras apos I, ou Linhas fora de [1,9], ou Pistas fora de [1,9])"
 
