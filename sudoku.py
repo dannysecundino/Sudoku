@@ -79,7 +79,11 @@ if quantidadeDeArquivos == 2:                   # Modo INTERATIVO
 
 
 elif quantidadeDeArquivos == 3:                 # Modo BATCH
-    print("BATCH")
+    arquivoPistas = open(arquivos[1], "r")          # Arquivo contendo as pistas
+    linhasPistas = arquivoPistas.readlines()        # Todas as pistas
+
+    arquivoJogadas = open(arquivos[2], "r")         # Arqivo contendo as jogadas
+    linhasJogadas = arquivoJogadas.readlines()      # Todas as jogadas
 
 
 
