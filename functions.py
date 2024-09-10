@@ -71,7 +71,7 @@ def setPista(l, c, valor):            # Estamos demarcando se a coordenada eh ou
     jogo[l][c] = valor                # A linha eh "-1", pois o usuario vai colocar uma entrada entre [1,9], e o programa vai trabalhar com numeros de [0,8]
     pista[l][c] = True
     
-def formata(s):                     # Como o usuario eh burro, nos precisamos remover todos os " ", "," e ":"; alem disso, vamos formatar outras coisas da entrada para facilitar a manipulação do codigo
+def formata(s):                       # Como o usuario eh burro, nos precisamos remover todos os " ", "," e ":"; alem disso, vamos formatar outras coisas da entrada para facilitar a manipulação do codigo
                                 # A forma que utilizamos para o usuarios burros foi usando a funcao replace que troca um elemento qualquer da string por outro
     s = s.replace(","," ")      # Trocamos todos "," por " "
     s = s.replace(":"," ")      # Trocamos todos ":" por " "
@@ -84,7 +84,7 @@ def formata(s):                     # Como o usuario eh burro, nos precisamos re
         s[0] = operador[1]      # Significa que o segundo elemento da lista é a Coluna que querenos então devolvemos para a lista original "s" apenas a coluna
         s.append(operador[0])   # Jogamos a operacao para o fim da lista "s"
     elif operador[0] == "?":    # Se o primeiro elemento dessa nova lista ("operador") for "?"
-        s[0] = operador[1]       # Significa que o segundo elemento da lista é a Coluna que querenos então devolvemos para a lista original "s" apenas a coluna
+        s[0] = operador[1]      # Significa que o segundo elemento da lista é a Coluna que querenos então devolvemos para a lista original "s" apenas a coluna
         s.append(operador[0])   # Jogamos a operacao para o fim da lista "s"
 
     else:                       # Caso nao for colocado nenhum operador na entrada, significa que foi apenas "<Coluna>"
@@ -146,9 +146,9 @@ def dica(l,c):                        # Funcao para conseguirmos saber a dica us
     
     # Vamos partir da suposicao de que todos os valores estao disponiveis ate que se prove o contrario
     valores_possiveis = ["1","2","3","4","5","6","7","8","9"]
-    nao_pode = []                           # Vamos adicionar os valores que nao sao possiveis qui para depois retira-los
+    nao_pode = []                     # Vamos adicionar os valores que nao sao possiveis qui para depois retira-los
 
-    if (not pista[l][c]) and (jogo[l][c] == " "):   # A dica() so deve dizer as possibilidadess para celulas vazias
+    if not pista[l][c]:               # A dica so sera conferida caso o espaco nao seja uma pista
 
         # Conferindo a linha e a coluna
         for i in range(9):
@@ -179,7 +179,6 @@ def dica(l,c):                        # Funcao para conseguirmos saber a dica us
             return "Essa posicao contem uma pista! Nao ha dicas para essa celula!"
         else:
             return "Essa posicao ja estah ocupada! Nao ha dicas para essa celula!"
-
 
 def tabelaCompletada():               # Confere se ainda tem algum espaco vazio na tabela
     completo = True                   # Partimos do principio que ela esta completa

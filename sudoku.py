@@ -1,14 +1,12 @@
-import functions as fu                         # Estamos importando as funcoes que fizemos do arquivo "functions.py"
-import sys                                     # Importando a biblioteca para pegar o arquivo
+import functions as fu                              # Estamos importando as funcoes que fizemos do arquivo "functions.py"
+import sys                                          # Importando a biblioteca para pegar o arquivo
 
 
 # Recebendo arquivo
-arquivos = sys.argv                             # Esta lendo as informações dadas no terminal
-quantidadeDeArquivos = len(arquivos)            # Arquivo sudoku.py + arquivos de entrada
+arquivos = sys.argv                                 # Esta lendo as informações dadas no terminal
+quantidadeDeArquivos = len(arquivos)                # Arquivo sudoku.py + arquivos de entrada
 
-
-
-if quantidadeDeArquivos == 2:                   # Modo INTERATIVO
+if quantidadeDeArquivos == 2:                       # Modo INTERATIVO
 
     arquivo = open(arquivos[1], "r")                # Esta abrindo o arquivo com o nome dado no terminal
     linhas = arquivo.readlines()  
@@ -22,15 +20,15 @@ if quantidadeDeArquivos == 2:                   # Modo INTERATIVO
         if coordenadas != "":                       # Testando se a linha nao estah vazia
             coordenadas = fu.formata(coordenadas)   # Transformando as coordenadas em uma lista
 
-            l = coordenadas[1]
             c = coordenadas[0]
+            l = coordenadas[1]
             valor = coordenadas[2]
-            tamanhoDaPista = len(coordenadas)       
+            tamanhoDaPista = len(coordenadas)       # Vai ser usado para conferir se a entrada realmente chegou apenas com as coordenadas, ex: A,2: 9 3 entra 4 variaveis, porem tem um erro de formatação aí
             
-            if (l != "erro") and (c != "erro") and (valor != "erro"):   # Conferindo se ha erros na pista (letras fora de A a I ou Numeros fora do intervalo [1,9])
+            if (l != "erro") and (c != "erro") and (valor != "erro") and (tamanhoDaPista == 3):   # Conferindo se ha erros na pista (letras fora de A a I ou Numeros fora do intervalo [1,9])
 
                 if fu.podeSerAdicionado(l,c,valor):
-                    fu.setPista(l,c,valor)                              # Adicionando as pistas na matriz principal do jogo
+                    fu.setPista(l,c,valor)          # Adicionando as pistas na matriz principal do jogo
                     numeroDePistas += 1
                 else:
                     erroTabela = True
@@ -43,15 +41,13 @@ if quantidadeDeArquivos == 2:                   # Modo INTERATIVO
     if numeroDePistas < 1 or numeroDePistas > 80:
         erroNumeroDePistas = True
                 
-
-
     if not erroTabela and not erroNumeroDePistas:   # Caso não haja erros na captacao de pistas
         fu.tabelaSudoku(alerta)                     # A tabela ja sera printada com as pistas
 
-        # Agora o jogo comeca de fato
+            # Agora o jogo comeca de fato
         while not fu.tabelaCompletada():            # Esse laco vai se repetir enquanto a tabela nao estiver completa
 
-            #Recebendo uma entrada
+            # Recebendo uma entrada
             entrada = input("   Digite a sua entrada: ")
             entrada = fu.formata(entrada)           # Tratando a entrada dada
             l = entrada[1]                          # Pegando a linha
@@ -68,17 +64,14 @@ if quantidadeDeArquivos == 2:                   # Modo INTERATIVO
             # Printando a nova tabela apos as alteracoes da jogada e com o alerta correspondente
             fu.tabelaSudoku(alerta)
 
-        # Saindo do laco: Fim de jogo
+            # Saindo do laco: Fim de jogo
         fu.fimDeJogo()
 
     else:   # Caso haja algum erro na captacao de pistas (erro de regras ou erro de numro de pistas)
         fu.errorPistas(erroTabela,erroNumeroDePistas,alerta)
 
 
-
-
-
-elif quantidadeDeArquivos == 3:                 # Modo BATCH
+elif quantidadeDeArquivos == 3:                     # Modo BATCH
     arquivoPistas = open(arquivos[1], "r")          # Arquivo contendo as pistas
     linhasPistas = arquivoPistas.readlines()        # Todas as pistas
 
@@ -93,7 +86,7 @@ elif quantidadeDeArquivos == 3:                 # Modo BATCH
 
         linha = linhasPistas[i]
 
-        if linha != "":                       # Testando se a linha nao estah vazia
+        if linha != "":                 # Testando se a linha nao estah vazia
             linha = fu.formata(linha)   # Transformando as coordenadas em uma lista
             l = linha[1]
             c = linha[0]
@@ -104,7 +97,7 @@ elif quantidadeDeArquivos == 3:                 # Modo BATCH
 
                 fu.setPista(l,c,valor)                              # Adicionando as pistas na matriz principal do jogo
 
-            else:                                                                                      # Caso se ponha uma nova dica para a mesma celula ou fira as regras do jogo
+            else:                                                   # Caso se ponha uma nova dica para a mesma celula ou fira as regras do jogo
                 print("Configuracao de dicas invalida.")
                 erroConfiguracaoDicas = True
 
@@ -114,7 +107,7 @@ elif quantidadeDeArquivos == 3:                 # Modo BATCH
 
     
 
-    if not erroConfiguracaoDicas:   # O jogo so prossegue se nao hoveram erros de configuracao nas pistas
+    if not erroConfiguracaoDicas:       # O jogo so prossegue se nao hoveram erros de configuracao nas pistas
         jogadasInvalidas = []
 
 
@@ -122,7 +115,7 @@ elif quantidadeDeArquivos == 3:                 # Modo BATCH
 
             # Preparando a possivel mensagem de jogada invalida
             coordenadas = linha.split(": ")
-            coordenadas[1] = coordenadas[1].replace("\n","")     # Para evitar que o valor seja printado com a quebra de linha que vem apos ele
+            coordenadas[1] = coordenadas[1].replace("\n","")  # Para evitar que o valor seja printado com a quebra de linha que vem apos ele
             mensagem = f"A jogada ({coordenadas[0]}) = {coordenadas[1]} eh invalida!"   # Mensagem padrao. Caso de erro, sera adicionada na lista jogadas invalidas
 
 
@@ -152,17 +145,11 @@ elif quantidadeDeArquivos == 3:                 # Modo BATCH
             print("A grade nao foi preenchida!")
 
 
-
-
-
-else:                                           # Caso tenham sido informados menos de 2 ou mais de 3 arquivos
+else:                                               # Caso tenham sido informados menos de 2 ou mais de 3 arquivos
 
     fu.os.system("cls") # TODO: trocar por clear em Linux
-    print("ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_\nERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_\nERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_\nERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_\nERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR_ERROR")
     
-    print("")
-    print("___________________________________________________ORIENTACOES___________________________________________________")
-    print("")
+    print("___________________________________________________ORIENTACOES___________________________________________________\n")
 
     print("MODO INTERATIVO: insira 1 (um) arquivo contendo as pistas do jogo.")
     print("     MODO BATCH: insira 2 (dois) arquivos, um contendo as pistas do jogo e outro contendo as jogadas realizadas.")
