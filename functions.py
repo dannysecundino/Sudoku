@@ -23,26 +23,37 @@ pista = [[False, False, False, False, False, False, False, False, False], # Cria
 def tabelaSudoku(alerta):             # Visualizacao do sudoku e do menu
     os.system("cls")                  # TODO: em Linux, eh "clear"
 
-    print("<<<==========| SUDOKU DE FuP |==========>>>\n")  #Cabecalho
+    print("\n     ██████████████████████████████████████████████████████████████████████")
+    print("     █▌                                                                  ▐█")
+    print("     █▌   █████████                 █████          █████                 ▐█")
+    print("     █▌  ███░░░░░███               ░░███          ░░███                  ▐█")
+    print("     █▌ ░███    ░░░  █████ ████  ███████   ██████  ░███ █████ █████ ████ ▐█")
+    print("     █▌ ░░█████████ ░░███ ░███  ███░░███  ███░░███ ░███░░███ ░░███ ░███  ▐█")
+    print("     █▌  ░░░░░░░░███ ░███ ░███ ░███ ░███ ░███ ░███ ░██████░   ░███ ░███  ▐█")
+    print("     █▌  ███    ░███ ░███ ░███ ░███ ░███ ░███ ░███ ░███░░███  ░███ ░███  ▐█")
+    print("     █▌ ░░█████████  ░░████████░░████████░░██████  ████ █████ ░░████████ ▐█")
+    print("     █▌  ░░░░░░░░░    ░░░░░░░░  ░░░░░░░░  ░░░░░░  ░░░░ ░░░░░   ░░░░░░░░  ▐█")
+    print("     █▌                                                                  ▐█")
+    print("     ██████████████████████████████████████████████████████████████████████\n")  #Cabecalho
 
     
-    print("    A   B   C    D   E   F    G   H   I")                # Iniciando a visualizacao do sudoku
+    print("                      A   B   C    D   E   F    G   H   I")                # Iniciando a visualizacao do sudoku
     for i in range(9):                                              # Vai percorrer as 9 linhas (0,9)
         if i == 3 or i == 6:                                        # Nas linhas apos o a linha "3" e a linha "6" o padrao de linha muda de "+" e "-" para "+" e "="
-            print(" ++===+===+===++===+===+===++===+===+===++ ")    # Linhas com "+" e "="
+            print("                   ++===+===+===++===+===+===++===+===+===++ ")    # Linhas com "+" e "="
         else:                                                       
-            print(" ++---+---+---++---+---+---++---+---+---++ ")    # Linhas mais comuns
-        print(f"{i+1}|| {jogo[i][0]} | {jogo[i][1]} | {jogo[i][2]} || {jogo[i][3]} | {jogo[i][4]} | {jogo[i][5]} || {jogo[i][6]} | {jogo[i][7]} | {jogo[i][8]} ||{i+1}")
-    print(" ++---+---+---++---+---+---++---+---+---++ ")            
-    print("    A   B   C    D   E   F    G   H   I")                # Finalizacao da visualizacao do sudoku
-    print("\n<<<=====================================>>>\n""")
+            print("                   ++---+---+---++---+---+---++---+---+---++ ")    # Linhas mais comuns
+        print(f"                  {i+1}|| {jogo[i][0]} | {jogo[i][1]} | {jogo[i][2]} || {jogo[i][3]} | {jogo[i][4]} | {jogo[i][5]} || {jogo[i][6]} | {jogo[i][7]} | {jogo[i][8]} ||{i+1}")
+    print("                   ++---+---+---++---+---+---++---+---+---++ ")            
+    print("                      A   B   C    D   E   F    G   H   I")                # Finalizacao da visualizacao do sudoku
+    print("\n                  <<<=====================================>>>\n""")
 
     #Faremos, agora o menu de entradas
-    print("        >>>======| MENU |======<<<\n")
-    print("-> Realizar Jogada:  <Coluna>,<Linha>: <Valor>")
-    print("->   Excluir Valor: !<Coluna>,<Linha>")
-    print("->  Possibilidades: ?<Coluna>,<Linha>")
-    print("\n         >>>==================<<<")
+    print("                          >>>======| MENU |======<<<\n")
+    print("                  -> Realizar Jogada:  <Coluna>,<Linha>: <Valor>")
+    print("                  ->   Excluir Valor: !<Coluna>,<Linha>")
+    print("                  ->  Possibilidades: ?<Coluna>,<Linha>")
+    print("\n                           >>>==================<<<")
     print(f"ALERTA: {alerta}")
 
 def letraParaNumero(letra):           # Funcao para tranformar os inputs de letras para numeros (que serao usados na manipulacao das colunas das matrizes)
@@ -77,31 +88,33 @@ def formata(s):                       # Como o usuario eh burro, nos precisamos 
     s = s.replace(":"," ")      # Trocamos todos ":" por " "
                                 # Assim, uma string que seria "!A,2: 9" se transforma em "!A 2  9"
     s = list(s.split())         # A agora basta dar um split e criar uma lista com todas as informacoes != de " "
+    if len(s) == 3:
+                                        # Como existe a possibilidade de ter uma operacao "!" e "?" como no exemplo das linhas acima
+        operador = list(s[0])       # Para isso, precisamos separar o primeiro elemento da lista que sempre será "?<Coluna>" ou somente "<Coluna>" na lista "operador"
+        if operador[0] == "!":      # Se o primeiro elemento dessa nova lista ("operador") for "!"
+            s[0] = operador[1]      # Significa que o segundo elemento da lista é a Coluna que querenos então devolvemos para a lista original "s" apenas a coluna
+            s.append(operador[0])   # Jogamos a operacao para o fim da lista "s"
+        elif operador[0] == "?":    # Se o primeiro elemento dessa nova lista ("operador") for "?"
+            s[0] = operador[1]      # Significa que o segundo elemento da lista é a Coluna que querenos então devolvemos para a lista original "s" apenas a coluna
+            s.append(operador[0])   # Jogamos a operacao para o fim da lista "s"
 
-                                    # Como existe a possibilidade de ter uma operacao "!" e "?" como no exemplo das linhas acima
-    operador = list(s[0])       # Para isso, precisamos separar o primeiro elemento da lista que sempre será "?<Coluna>" ou somente "<Coluna>" na lista "operador"
-    if operador[0] == "!":      # Se o primeiro elemento dessa nova lista ("operador") for "!"
-        s[0] = operador[1]      # Significa que o segundo elemento da lista é a Coluna que querenos então devolvemos para a lista original "s" apenas a coluna
-        s.append(operador[0])   # Jogamos a operacao para o fim da lista "s"
-    elif operador[0] == "?":    # Se o primeiro elemento dessa nova lista ("operador") for "?"
-        s[0] = operador[1]      # Significa que o segundo elemento da lista é a Coluna que querenos então devolvemos para a lista original "s" apenas a coluna
-        s.append(operador[0])   # Jogamos a operacao para o fim da lista "s"
+        else:                       # Caso nao for colocado nenhum operador na entrada, significa que foi apenas "<Coluna>"
+            s[2] = int(s[2])
+            if (s[2] < 1) or (s[2] > 9):
+                s[2] = "erro"
+            else: 
+                s[2] = str(s[2])
 
-    else:                       # Caso nao for colocado nenhum operador na entrada, significa que foi apenas "<Coluna>"
-        s[2] = int(s[2])
-        if (s[2] < 1) or (s[2] > 9):
-            s[2] = "erro"
-        else: 
-            s[2] = str(s[2])
+        s[0] = letraParaNumero(s[0])
 
-    s[0] = letraParaNumero(s[0])
-
-    s[1] = int(s[1])
-    
-    if s[1] >=1 and s[1] <=9:
-        s[1] = s[1] - 1
+        s[1] = int(s[1])
+        
+        if s[1] >=1 and s[1] <=9:
+            s[1] = s[1] - 1
+        else:
+            s[1] = "erro"
     else:
-        s[1] = "erro"
+        s = "erro"
     
     return s
 
@@ -292,38 +305,65 @@ def errorPistas(erroTabela,erroNumeroDePistas,alerta):  # Essa funcao so sera ch
 def fimDeJogo():                      # Essa funcao sera chamado quando o jogo acabar
     os.system("cls")                  # TODO: em Linux, eh "clear"
 
-    print("<<<==========| SUDOKU DE FuP |==========>>>\n")  #Cabecalho
+    
+    print("\n                           ██████████████████████████████████████████████████████████████████████")
+    print("                           █▌                                                                  ▐█")
+    print("                           █▌   █████████                 █████          █████                 ▐█")
+    print("                           █▌  ███░░░░░███               ░░███          ░░███                  ▐█")
+    print("                           █▌ ░███    ░░░  █████ ████  ███████   ██████  ░███ █████ █████ ████ ▐█")
+    print("                           █▌ ░░█████████ ░░███ ░███  ███░░███  ███░░███ ░███░░███ ░░███ ░███  ▐█")
+    print("                           █▌  ░░░░░░░░███ ░███ ░███ ░███ ░███ ░███ ░███ ░██████░   ░███ ░███  ▐█")
+    print("                           █▌  ███    ░███ ░███ ░███ ░███ ░███ ░███ ░███ ░███░░███  ░███ ░███  ▐█")
+    print("                           █▌ ░░█████████  ░░████████░░████████░░██████  ████ █████ ░░████████ ▐█")
+    print("                           █▌  ░░░░░░░░░    ░░░░░░░░  ░░░░░░░░  ░░░░░░  ░░░░ ░░░░░   ░░░░░░░░  ▐█")
+    print("                           █▌                                                                  ▐█")
+    print("                           ██████████████████████████████████████████████████████████████████████\n")  #Cabecalho
 
     
-    print("    A   B   C    D   E   F    G   H   I")                # Iniciando a visualizacao do sudoku
+    print("\n                                            A   B   C    D   E   F    G   H   I")                # Iniciando a visualizacao do sudoku
     for i in range(9):                                              # Vai percorrer as 9 linhas (0,9)
         if i == 3 or i == 6:                                        # Nas linhas apos o a linha "3" e a linha "6" o padrao de linha muda de "+" e "-" para "+" e "="
-            print(" ++===+===+===++===+===+===++===+===+===++ ")    # Linhas com "+" e "="
+            print("                                         ++===+===+===++===+===+===++===+===+===++ ")    # Linhas com "+" e "="
         else:                                                       
-            print(" ++---+---+---++---+---+---++---+---+---++ ")    # Linhas mais comuns
-        print(f"{i+1}|| {jogo[i][0]} | {jogo[i][1]} | {jogo[i][2]} || {jogo[i][3]} | {jogo[i][4]} | {jogo[i][5]} || {jogo[i][6]} | {jogo[i][7]} | {jogo[i][8]} ||{i+1}")
-    print(" ++---+---+---++---+---+---++---+---+---++ ")            
-    print("    A   B   C    D   E   F    G   H   I")                # Finalizacao da visualizacao do sudoku
-    print("\n<<<=====================================>>>\n""")
+            print("                                         ++---+---+---++---+---+---++---+---+---++ ")    # Linhas mais comuns
+        print(f"                                        {i+1}|| {jogo[i][0]} | {jogo[i][1]} | {jogo[i][2]} || {jogo[i][3]} | {jogo[i][4]} | {jogo[i][5]} || {jogo[i][6]} | {jogo[i][7]} | {jogo[i][8]} ||{i+1}")
+    print("                                         ++---+---+---++---+---+---++---+---+---++ ")            
+    print("                                            A   B   C    D   E   F    G   H   I")                # Finalizacao da visualizacao do sudoku
+    print("\n")
     
 
 
     # Mensagem de vitoria
-    you_win =["                  VVV     VVV	  OOOOOOOO      CCCCCCC     EEEEEEEE",
-              "                   VVV   VVV     OO      OO    CC          EE",
-              "                    VVV VVV      OO      OO    CC          EEEE",
-              "                     VVVVV       OO      OO    CC          EE",
-              "                      VVV         OOOOOOOO      CCCCCCC     EEEEEEEE",
-            "",
-            "      GGGGGGGG      AAAAAAAA     NN     NN   HH     HH    OOOOOOOO     UU      UU     !!!",
-            "     GG            AA      AA    NNNN   NN   HH     HH   OO      OO    UU      UU     !!!",
-            "     GG  GGGGGG    AAAAAAAAAA    NN  NN NN   HHHHHHHHH   OO      OO    UU      UU     !!!",
-            "     GG      GG    AA      AA    NN    NNN   HH     HH   OO      OO    UU      UU     !!!",
-            "      GGGGGGGG     AA      AA    NN     NN   HH     HH    OOOOOOOO      UUUUUUUU       O"]
-    
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n")
+    you_win =["██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████",      
+              "█▌                                                                                                                          ▐█", 
+              "█▌  █████   █████                                 █████████                       █████                             ███ ███ ▐█", 
+              "█▌ ░░███   ░░███                                 ███░░░░░███                     ░░███                             ░███░███ ▐█", 
+              "█▌  ░███    ░███   ██████   ██████   ██████     ███     ░░░   ██████   ████████   ░███████    ██████  █████ ████   ░███░███ ▐█", 
+              "█▌  ░███    ░███  ███░░███ ███░░███ ███░░███   ░███          ░░░░░███ ░░███░░███  ░███░░███  ███░░███░░███ ░███    ░███░███ ▐█", 
+              "█▌  ░░███   ███  ░███ ░███░███ ░░░ ░███████    ░███    █████  ███████  ░███ ░███  ░███ ░███ ░███ ░███ ░███ ░███    ░███░███ ▐█", 
+              "█▌   ░░░█████░   ░███ ░███░███  ███░███░░░     ░░███  ░░███  ███░░███  ░███ ░███  ░███ ░███ ░███ ░███ ░███ ░███    ░░░ ░░░  ▐█", 
+              "█▌     ░░███     ░░██████ ░░██████ ░░██████     ░░█████████ ░░████████ ████ █████ ████ █████░░██████  ░░████████    ███ ███ ▐█", 
+              "█▌      ░░░       ░░░░░░   ░░░░░░   ░░░░░░       ░░░░░░░░░   ░░░░░░░░ ░░░░ ░░░░░ ░░░░ ░░░░░  ░░░░░░    ░░░░░░░░    ░░░ ░░░  ▐█", 
+              "█▌                                                                                                                          ▐█", 
+              "██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████"]
     for linha in you_win:
         print(linha)   
-    print("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
-
+def orientacao():      
+    print("█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████")
+    print("█▌                                                                                                                 ▐█")
+    print("█▌        ███████               ███                       █████                                                    ▐█")
+    print("█▌      ███░░░░░███            ░░░                       ░░███                                                     ▐█")
+    print("█▌     ███     ░░███ ████████  ████   ██████  ████████   ███████    ██████    ██████   ██████   ██████   █████     ▐█")
+    print("█▌    ░███      ░███░░███░░███░░███  ███░░███░░███░░███ ░░░███░    ░░░░░███  ███░░███ ███░░███ ███░░███ ███░░      ▐█")
+    print("█▌    ░███      ░███ ░███ ░░░  ░███ ░███████  ░███ ░███   ░███      ███████ ░███ ░░░ ░███ ░███░███████ ░░█████     ▐█")
+    print("█▌    ░░███     ███  ░███      ░███ ░███░░░   ░███ ░███   ░███ ███ ███░░███ ░███  ███░███ ░███░███░░░   ░░░░███    ▐█")
+    print("█▌     ░░░███████░   █████     █████░░██████  ████ █████  ░░█████ ░░████████░░██████ ░░██████ ░░██████  ██████     ▐█")
+    print("█▌       ░░░░░░░    ░░░░░     ░░░░░  ░░░░░░  ░░░░ ░░░░░    ░░░░░   ░░░░░░░░  ░░░░░░   ░░░░░░   ░░░░░░  ░░░░░░      ▐█")
+    print("█▌                                                                                                                 ▐█")
+    print("█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████")
+    print("█▌                                                                                                                 ▐█")
+    print("█▌   MODO INTERATIVO: insira 1 (um) arquivo contendo as pistas do jogo.                                            ▐█")                                          
+    print("█▌   MODO BATCH: insira 2 (dois) arquivos, um contendo as pistas do jogo e outro contendo as jogadas realizadas.   ▐█")
+    print("█▌                                                                                                                 ▐█")
+    print("█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████")

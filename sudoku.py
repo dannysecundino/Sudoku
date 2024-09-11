@@ -49,22 +49,25 @@ if quantidadeDeArquivos == 2:                       # Modo INTERATIVO
 
             # Recebendo uma entrada
             entrada = input("   Digite a sua entrada: ")
-            entrada = fu.formata(entrada)           # Tratando a entrada dada
-            l = entrada[1]                          # Pegando a linha
-            c = entrada[0]                          # Pegando a coluna
-            tamanhoDaEntrada = len(entrada)
+            entrada = fu.formata(entrada)           # Tratando a entrada dada 
+            if entrada[0] != "erro":
+                l = entrada[1]                          # Pegando a linha
+                c = entrada[0]                          # Pegando a coluna
+                tamanhoDaEntrada = len(entrada)
 
 
-            if (l != "erro") and (c != "erro") and (entrada[2] != "erro") and (tamanhoDaEntrada == 3):  # Conferindo se ha erros na entrada (letras fora de A a I ou Numeros fora do intervalo [1,9])
-                alerta = fu.acaoDoUsuario(l, c, entrada[2])
-            
+                if (l != "erro") and (c != "erro") and (entrada[2] != "erro") and (tamanhoDaEntrada == 3):  # Conferindo se ha erros na entrada (letras fora de A a I ou Numeros fora do intervalo [1,9])
+                    alerta = fu.acaoDoUsuario(l, c, entrada[2])
+                
+                else:
+                    alerta = "Entrada invalida! Tente Novamente!\n(Isto eh, Coluna com letra apos I, ou Linha fora de [1,9], ou Valor fora de [1,9])"
+
+                # Printando a nova tabela apos as alteracoes da jogada e com o alerta correspondente
+                fu.tabelaSudoku(alerta)
+
             else:
                 alerta = "Entrada invalida! Tente Novamente!\n(Isto eh, Coluna com letra apos I, ou Linha fora de [1,9], ou Valor fora de [1,9])"
-
-            # Printando a nova tabela apos as alteracoes da jogada e com o alerta correspondente
-            fu.tabelaSudoku(alerta)
-
-            # Saindo do laco: Fim de jogo
+                # Saindo do laco: Fim de jogo
         fu.fimDeJogo()
 
     else:   # Caso haja algum erro na captacao de pistas (erro de regras ou erro de numro de pistas)
@@ -148,10 +151,4 @@ elif quantidadeDeArquivos == 3:                     # Modo BATCH
 else:                                               # Caso tenham sido informados menos de 2 ou mais de 3 arquivos
 
     fu.os.system("cls") # TODO: trocar por clear em Linux
-    
-    print("___________________________________________________ORIENTACOES___________________________________________________\n")
-
-    print("MODO INTERATIVO: insira 1 (um) arquivo contendo as pistas do jogo.")
-    print("     MODO BATCH: insira 2 (dois) arquivos, um contendo as pistas do jogo e outro contendo as jogadas realizadas.")
-
-    print("_________________________________________________________________________________________________________________")
+    fu.orientacao()
