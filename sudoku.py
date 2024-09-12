@@ -48,7 +48,7 @@ if quantidadeDeArquivos == 2:                       # Modo INTERATIVO
         while not fu.tabelaCompletada():            # Esse laco vai se repetir enquanto a tabela nao estiver completa
 
             # Recebendo uma entrada
-            entrada = input("   Digite a sua entrada: ")
+            entrada = input("                            Digite a sua entrada: ")
             entrada = fu.formata(entrada)           # Tratando a entrada dada 
             if entrada[0] != "erro":
                 l = entrada[1]                          # Pegando a linha
@@ -60,13 +60,13 @@ if quantidadeDeArquivos == 2:                       # Modo INTERATIVO
                     alerta = fu.acaoDoUsuario(l, c, entrada[2])
                 
                 else:
-                    alerta = "Entrada invalida! Tente Novamente!\n(Isto eh, Coluna com letra apos I, ou Linha fora de [1,9], ou Valor fora de [1,9])"
+                    alerta = f"{fu.vermelho}Entrada invalida! Tente Novamente!\n(Isto eh, Coluna com letra apos I, ou Linha fora de [1,9], ou Valor fora de [1,9]){fu.branco}"
 
                 # Printando a nova tabela apos as alteracoes da jogada e com o alerta correspondente
                 fu.tabelaSudoku(alerta)
 
             else:
-                alerta = "Entrada invalida! Tente Novamente!\n(Isto eh, Coluna com letra apos I, ou Linha fora de [1,9], ou Valor fora de [1,9])"
+                alerta = f"{fu.vermelho}Entrada invalida! Tente Novamente!\n(Isto eh, Coluna com letra apos I, ou Linha fora de [1,9], ou Valor fora de [1,9]){fu.branco}"
                 # Saindo do laco: Fim de jogo
         fu.fimDeJogo()
 

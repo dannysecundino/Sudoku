@@ -61,7 +61,7 @@ def tabelaSudoku(alerta):             # Visualizacao do sudoku e do menu
     print("                  ->   Excluir Valor: !<Coluna>,<Linha>")
     print("                  ->  Possibilidades: ?<Coluna>,<Linha>")
     print("\n                           >>>==================<<<")
-    print(f"ALERTA: {alerta}")
+    print(f"                  ALERTA: {alerta}")
 
 def letraParaNumero(letra):           # Funcao para tranformar os inputs de letras para numeros (que serao usados na manipulacao das colunas das matrizes)
     if letra == "A" or letra == "a":
@@ -93,9 +93,11 @@ def formata(s):                       # Como o usuario eh burro, nos precisamos 
                                 # A forma que utilizamos para o usuarios burros foi usando a funcao replace que troca um elemento qualquer da string por outro
     s = s.replace(","," ")      # Trocamos todos "," por " "
     s = s.replace(":"," ")      # Trocamos todos ":" por " "
+    x = s.replace(" ","")
+    y = list(x.split()) 
                                 # Assim, uma string que seria "!A,2: 9" se transforma em "!A 2  9"
     s = list(s.split())         # A agora basta dar um split e criar uma lista com todas as informacoes != de " "
-    if len(s) == 3 or len(s) == 2 or len(s) != 1:
+    if (len(s) == 3) or (len(s) == 2) or (len(s) != 1) and (x != "") : # Ele nao entrara no laco caso a entrada for apenas " " ou "" e ele so entrara se for 2 ou 3 variaveis "!A,2" ou "A,2: 8" 
                                         # Como existe a possibilidade de ter uma operacao "!" e "?" como no exemplo das linhas acima
         operador = list(s[0])       # Para isso, precisamos separar o primeiro elemento da lista que sempre será "?<Coluna>" ou somente "<Coluna>" na lista "operador"
         if operador[0] == "!":      # Se o primeiro elemento dessa nova lista ("operador") for "!"
