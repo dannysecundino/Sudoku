@@ -36,7 +36,7 @@ if quantidadeDeArquivos == 2:                       # Modo INTERATIVO
             else:
                 errosDeFormatacaoPistas += 1
 
-    alerta = f"Houveram {errosDeFormatacaoPistas} pistas declaradas de forma invalida!\n(Isto eh, Colunas com letras apos I, ou Linhas fora de [1,9], ou Pistas fora de [1,9])"
+    alerta = f"{fu.amarelo}Houveram {errosDeFormatacaoPistas} pistas declaradas de forma invalida!\n(Isto eh, Colunas com letras apos I, ou Linhas fora de [1,9], ou Pistas fora de [1,9]){fu.branco}"
 
     if numeroDePistas < 1 or numeroDePistas > 80:
         erroNumeroDePistas = True

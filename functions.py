@@ -1,5 +1,12 @@
 import os                             # Estamos utilizando apenas para limpar o terminal
 
+# Cores usadas no programa
+verde = "\033[1;49;32m"
+amarelo = "\033[1;49;33m"
+vermelho = "\033[1;49;31m"
+branco = "\033[1;49;37m"
+azul = "\033[5;49;34m"
+
 jogo = [[" ", " ", " ", " ", " ", " ", " ", " ", " "],  # Essa matriz representara o jogo por completo. Nela, serao adicionadas as pistas e as jogadas do usuario
         [" ", " ", " ", " ", " ", " ", " ", " ", " "],  # Primeiro voce coloca a linha que voce quer acessar, depois a coluna
         [" ", " ", " ", " ", " ", " ", " ", " ", " "],  # Dessa forma jogo[l][c]
@@ -23,7 +30,7 @@ pista = [[False, False, False, False, False, False, False, False, False], # Cria
 def tabelaSudoku(alerta):             # Visualizacao do sudoku e do menu
     os.system("cls")                  # TODO: em Linux, eh "clear"
 
-    print("\n     ██████████████████████████████████████████████████████████████████████")
+    print(f"\n{branco}     ██████████████████████████████████████████████████████████████████████")
     print("     █▌                                                                  ▐█")
     print("     █▌   █████████                 █████          █████                 ▐█")
     print("     █▌  ███░░░░░███               ░░███          ░░███                  ▐█")
@@ -88,7 +95,7 @@ def formata(s):                       # Como o usuario eh burro, nos precisamos 
     s = s.replace(":"," ")      # Trocamos todos ":" por " "
                                 # Assim, uma string que seria "!A,2: 9" se transforma em "!A 2  9"
     s = list(s.split())         # A agora basta dar um split e criar uma lista com todas as informacoes != de " "
-    if len(s) == 3:
+    if len(s) == 3 or len(s) == 2 or len(s) != 1:
                                         # Como existe a possibilidade de ter uma operacao "!" e "?" como no exemplo das linhas acima
         operador = list(s[0])       # Para isso, precisamos separar o primeiro elemento da lista que sempre será "?<Coluna>" ou somente "<Coluna>" na lista "operador"
         if operador[0] == "!":      # Se o primeiro elemento dessa nova lista ("operador") for "!"
@@ -97,7 +104,6 @@ def formata(s):                       # Como o usuario eh burro, nos precisamos 
         elif operador[0] == "?":    # Se o primeiro elemento dessa nova lista ("operador") for "?"
             s[0] = operador[1]      # Significa que o segundo elemento da lista é a Coluna que querenos então devolvemos para a lista original "s" apenas a coluna
             s.append(operador[0])   # Jogamos a operacao para o fim da lista "s"
-
         else:                       # Caso nao for colocado nenhum operador na entrada, significa que foi apenas "<Coluna>"
             s[2] = int(s[2])
             if (s[2] < 1) or (s[2] > 9):
@@ -226,17 +232,17 @@ def acaoDoUsuario(l,c,valor):         # Agora vamos trabalhar com o que recebemo
     # Para excluir uma posicao
     if valor == '!':                                              
         if pista[l][c]:                                             # Pistas nao podem ser excluidas
-            alerta = "Nao se pode excluir uma pista!"
+            alerta = f"{vermelho}Nao se pode excluir uma pista!{branco}"
         elif jogo[l][c] == " ":                                     # Espaços vazios não devem ser deletados
-            alerta = "Nao se pode excluir uma posicao vazia!"
+            alerta = f"{vermelho}Nao se pode excluir uma posicao vazia!{branco}"
         else:                                                          # Excluindo o valor caso aquelas condicoes tenham sido atendidas
             jogo[l][c] = " "                                        
-            alerta = "Valor excluido!"
+            alerta = f"{verde}Valor excluido!{branco}"
 
 
     # Para saber as possibilidades daquela posicao
     elif valor == '?':                                            
-        alerta = dica(l,c)
+        alerta = f"{verde}{dica(l,c)}{branco}"
 
 
     # Para adiconar um valor ao jogo
@@ -249,27 +255,27 @@ def acaoDoUsuario(l,c,valor):         # Agora vamos trabalhar com o que recebemo
 
                     if jogo[l][c] != " ":    # Sobrescrever o valor 
 
-                        print("Essa posicao ja estah ocupada.")
+                        print(f"{amarelo}Essa posicao ja estah ocupada.{branco}")
                         certeza = input("Voce deseja substituir o valor atual? [S/N] ")
                         certeza = certeza.upper()   # Transforma em Caixa-Alta
                         if certeza == "S":    # Garantir que o usuario quer sobrescrever o valor
                             jogo[l][c] = valor
-                            alerta = "Valor alterado!"
+                            alerta = f"{verde}Valor alterado!{branco}"
                         else:                 # Caso o usuario nao queira sobrescrever o valor
-                            alerta = "Jogue novamente!"
+                            alerta = f"{amarelo}Jogue novamente!{branco}"
 
                     else:                       # Adicionar Valor
                         jogo[l][c] = valor
-                        alerta = "Valor adicionado!"
+                        alerta = f"{verde}Valor adicionado!{branco}"
 
-                else:   # Uma pista nao pode ser substituída                         
-                    alerta = "Esse valor nao pode ser adicionado (Fere as regras do jogo)!"
+                else:    # O valor soh pode ser adicionado se ele estiver na lista de dicas                  
+                    alerta = f"{vermelho}Esse valor nao pode ser adicionado (Fere as regras do jogo)!{branco}"
 
-            else:   # O valor soh pode ser adicionado se ele estiver na lista de dicas
-                alerta = "Voce nao pode sobrescrever uma pista!"
+            else:   # Uma pista nao pode ser substituída
+                alerta = f"{vermelho}Voce nao pode sobrescrever uma pista!{branco}"
         
         else: 
-            alerta = "Entrada invalida! Tente novamente!"
+            alerta = f"{amarelo}Entrada invalida! Tente novamente!{branco}"
     return alerta   # Sera mostrado na hora de printar a tabela         
 
 def errorPistas(erroTabela,erroNumeroDePistas,alerta):  # Essa funcao so sera chamada se houver algum erro na entrada das pistas, ou porque estao fora do intervalo [1,80], ou porque feriram as regras do jogo
@@ -296,9 +302,9 @@ def errorPistas(erroTabela,erroNumeroDePistas,alerta):  # Essa funcao so sera ch
     print("\n==============================>>ERROR<<==============================\n")    
     # Usaremos dois if's, porque, caso ocorra de os dois erros acontecerem, isso deve ser informado para o usuario
     if erroTabela:
-        print("=> As pistas fornecidas feriram as regras do jogo.")
+        print(f"{vermelho}=> As pistas fornecidas feriram as regras do jogo.{branco}")
     if erroNumeroDePistas:
-        print("=> O numero de pistas fornecidas estah fora do intervalo [1,80].") 
+        print(f"{vermelho}=> O numero de pistas fornecidas estah fora do intervalo [1,80].{branco}") 
     
     print("\n--------------------------Tente Novamente!--------------------------")     
 
@@ -328,13 +334,12 @@ def fimDeJogo():                      # Essa funcao sera chamado quando o jogo a
             print("                                         ++---+---+---++---+---+---++---+---+---++ ")    # Linhas mais comuns
         print(f"                                        {i+1}|| {jogo[i][0]} | {jogo[i][1]} | {jogo[i][2]} || {jogo[i][3]} | {jogo[i][4]} | {jogo[i][5]} || {jogo[i][6]} | {jogo[i][7]} | {jogo[i][8]} ||{i+1}")
     print("                                         ++---+---+---++---+---+---++---+---+---++ ")            
-    print("                                            A   B   C    D   E   F    G   H   I")                # Finalizacao da visualizacao do sudoku
-    print("\n")
+    print("                                            A   B   C    D   E   F    G   H   I\n")                # Finalizacao da visualizacao do sudoku
     
 
 
     # Mensagem de vitoria
-    you_win =["██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████",      
+    you_win =[f"{verde}██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████",      
               "█▌                                                                                                                          ▐█", 
               "█▌  █████   █████                                 █████████                       █████                             ███ ███ ▐█", 
               "█▌ ░░███   ░░███                                 ███░░░░░███                     ░░███                             ░███░███ ▐█", 
@@ -345,7 +350,7 @@ def fimDeJogo():                      # Essa funcao sera chamado quando o jogo a
               "█▌     ░░███     ░░██████ ░░██████ ░░██████     ░░█████████ ░░████████ ████ █████ ████ █████░░██████  ░░████████    ███ ███ ▐█", 
               "█▌      ░░░       ░░░░░░   ░░░░░░   ░░░░░░       ░░░░░░░░░   ░░░░░░░░ ░░░░ ░░░░░ ░░░░ ░░░░░  ░░░░░░    ░░░░░░░░    ░░░ ░░░  ▐█", 
               "█▌                                                                                                                          ▐█", 
-              "██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████"]
+              f"██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████{branco}"]
     for linha in you_win:
         print(linha)   
 
