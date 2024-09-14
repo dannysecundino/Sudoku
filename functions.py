@@ -93,22 +93,21 @@ def formata(s):                       # Como o usuario eh burro, nos precisamos 
                                 # A forma que utilizamos para o usuarios burros foi usando a funcao replace que troca um elemento qualquer da string por outro
     s = s.replace(","," ")      # Trocamos todos "," por " "
     s = s.replace(":"," ")      # Trocamos todos ":" por " "
-    x = s.replace(" ","")
-    y = list(x.split()) 
                                 # Assim, uma string que seria "!A,2: 9" se transforma em "!A 2  9"
     s = list(s.split())         # A agora basta dar um split e criar uma lista com todas as informacoes != de " "
-    if (len(s) == 3) or (len(s) == 2) or (len(s) != 1) and (x != "") : # Ele nao entrara no laco caso a entrada for apenas " " ou "" e ele so entrara se for 2 ou 3 variaveis "!A,2" ou "A,2: 8" 
+                                # retornando por exemplo a lista ['!A' , '2', '']
+    if (len(s) == 3) or (len(s) == 2): # Ele nao entrara no laco caso a entrada nao for apenas " " ou "" e ele so entrara se for 2 ou 3 variaveis na lista acima "!A,2" ou "A,2: 8" 
                                         # Como existe a possibilidade de ter uma operacao "!" e "?" como no exemplo das linhas acima
         operador = list(s[0])       # Para isso, precisamos separar o primeiro elemento da lista que sempre será "?<Coluna>" ou somente "<Coluna>" na lista "operador"
         if operador[0] == "!":      # Se o primeiro elemento dessa nova lista ("operador") for "!"
-            s[0] = operador[1]      # Significa que o segundo elemento da lista é a Coluna que querenos então devolvemos para a lista original "s" apenas a coluna
+            s[0] = operador[1]      # significa que o segundo elemento da lista é a Coluna que querenos então devolvemos para a lista original "s" apenas a coluna
             s.append(operador[0])   # Jogamos a operacao para o fim da lista "s"
         elif operador[0] == "?":    # Se o primeiro elemento dessa nova lista ("operador") for "?"
-            s[0] = operador[1]      # Significa que o segundo elemento da lista é a Coluna que querenos então devolvemos para a lista original "s" apenas a coluna
+            s[0] = operador[1]      # significa que o segundo elemento da lista é a Coluna que querenos então devolvemos para a lista original "s" apenas a coluna
             s.append(operador[0])   # Jogamos a operacao para o fim da lista "s"
-        else:                       # Caso nao for colocado nenhum operador na entrada, significa que foi apenas "<Coluna>"
-            s[2] = int(s[2])
-            if (s[2] < 1) or (s[2] > 9):
+        else:                               # Caso nao for colocado nenhum operador na entrada, significa que foi apenas "<Coluna>" na primeira posicao
+            s[2] = int(s[2])                # Assim nos concluimos que o usuario quer apenas adicionar um "<Valor>" na tabela,
+            if (s[2] < 1) or (s[2] > 9):    # entao precisamos conferir se esse "<Valor>" esta no intervalo [1,9]
                 s[2] = "erro"
             else: 
                 s[2] = str(s[2])
