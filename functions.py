@@ -256,8 +256,8 @@ def acaoDoUsuario(l,c,valor):         # Agora vamos trabalhar com o que recebemo
 
                     if jogo[l][c] != " ":    # Sobrescrever o valor 
 
-                        print(f"{amarelo}Essa posicao ja estah ocupada.{branco}")
-                        certeza = input("Voce deseja substituir o valor atual? [S/N] ")
+                        print(f"{amarelo}                  Essa posicao ja estah ocupada.{branco}")
+                        certeza = input("                  Voce deseja substituir o valor atual? [S/N] ")
                         certeza = certeza.upper()   # Transforma em Caixa-Alta
                         if certeza == "S":    # Garantir que o usuario quer sobrescrever o valor
                             jogo[l][c] = valor
