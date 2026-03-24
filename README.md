@@ -155,6 +155,7 @@ Graduandos em Ciência da Computação - Universidade Federal do Ceará (UFC)
 Projeto desenvolvido para a disciplina de **Fundamentos de Programação**, com foco em:
 
 * Lógica de programação
+* Estruturas de Dados básicas (Listas e Matrizes)
 * Boas práticas de desenvolvimento
 
 ---
