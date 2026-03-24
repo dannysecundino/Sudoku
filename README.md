@@ -140,23 +140,13 @@ O sistema detecta automaticamente:
 
 ---
 
-## 🔮 Melhorias Futuras
-
-* [ ] Interface gráfica (GUI)
-* [ ] Solver automático de Sudoku
-* [ ] Suporte multiplataforma para limpeza de terminal
-* [ ] Melhor organização do código (POO)
-* [ ] Exportação do jogo final
-
----
-
 ## 👨‍💻 Autores
 
 * Caio Emanuel
 * Danny Secundino
 * Guilherme Martins
 
-Graduandos em Engenharia de Computação - Universidade Federal do Ceará (UFC)
+Graduandos em Ciência da Computação - Universidade Federal do Ceará (UFC)
 
 ---
 
